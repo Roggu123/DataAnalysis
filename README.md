@@ -3,8 +3,10 @@ This repository record My study of DataAnalysis including operation and concepti
 学习数据分析的过程记录，总结，以及资料整理收集
 ## 目录
 <br>**Reference**------- 数据分析学习的参考资料
-<br>**hfda_data**------- 深入浅出数据分析下载资源
-<br>**Practice**---书本中的相关练习以及网上的相关项目练习（包含有个人总结及问题积累）
+<br>**hfda_data**------- 深入浅出数据分析下载资源<br>**hfda_operat**---- 深入浅出数据分析R代码
+<br>**Pictures**--------- 博客当中用到的图片
+<br>**Concept**--------- 数据学习基础概念总结([初学SQL—入门概念](https://blog.csdn.net/lrglgy/article/details/90298842)）
+<br>**Operation**------- 数据学习基础操作总结([Mac安装连接MySQL(从零开始)](https://blog.csdn.net/lrglgy/article/details/90302029)     [Mac安装并使用R](https://blog.csdn.net/lrglgy/article/details/90297731))
 
 ## 入门参考
 + **SQL**
@@ -32,7 +34,10 @@ This repository record My study of DataAnalysis including operation and concepti
 [《SQL学习指南(第2版)》](/Users/ruogulu/Desktop/Study/DataAnslysis/References/2、SQL学习指南(第2版)@www.java1234.com.pdf)  
 操作：  
 [SQL 教程](http://www.w3school.com.cn/sql/index.asp)  
-[Learn SQL](https://www.codecademy.com/zh/learn/learn-sql)
+[Learn SQL](https://www.codecademy.com/zh/learn/learn-sql)  
+个人总结：  
+[基本概念](Concept.md)  
+[基本操作](Operation.md)
 
 
 + **第二阶段** 
