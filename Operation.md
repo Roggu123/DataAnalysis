@@ -1,21 +1,45 @@
+Table of Contents
+=================
+
+   * [Operation](#operation)
+      * [1.1 Mac安装使用Mysql教程(从零开始)](#11-mac安装使用mysql教程从零开始)
+         * [1.1.1 安装MySQL](#111-安装MySQL)  
+         * [1.1.2 安装数据库管理软件DBeaver](#112-安装数据库管理软件DBeaver)  
+         * [1.1.3 DBeaver创建MySQL数据库](#113-DBeaver创建MySQL数据库)
+         * [1.1.4 参考](#114-参考)
+      * [1.2 Mac安装并使用R](#12-mac安装并使用r)
+         * [1.2.1 前言](#121-前言)
+         * [1.2.2 安装](#122-安装)
+         * [1.2.3 使用](#123-使用)
+         * [1.2.4 参考](#124-参考)
+
 # <center>Operation</center>
 学习数据分析当中一些操作的总结分析
-## 1.1 Mac安装使用Mysql教程(从零开始)  
-### 1.1.1 过程记录
-+ **安装Mysql：**  
+## <div id="11-mac安装使用mysql教程从零开始">1.1 Mac安装使用Mysql教程(从零开始)</div>
+  
+### <div id="111-安装MySQL">1.1.1 安装Mysql</div>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mysql已经在博客[《Concept_Database》](/Users/ruogulu/Desktop/Study/DataAnalysis/Concept.md)中进行过讲解，这里不做赘述，直接安装。
 	1. 访问 [MySQL官网下载页](https://dev.mysql.com/downloads/mysql/) 并下载MySQL，详情见下图：  
-![Alt text](Pictures/WebPage.png)	  
+![Alt text](Pictures/WebPage.png)
+<center>图1-1.进入官网</center>	  
 ![Alt text](Pictures/DownloadPage.png)  
+<center>图1-2.下载</center> 
 	2. 双击安装包`mysql-8.0.16-macos10.14-x86_64.dmg` ，之后开始安装过程，一直点击`继续`就好，详情见下图：  
-		![Alt text](Pictures/Install1.png) 
-		![Alt text](Pictures/password1.png) 
-		![Alt text](Pictures/password2.png)
-		![Alt text](Pictures/finished.png)
+		![Alt text](Pictures/Install1.png)  
+		<center>图1-3.</center> 
+		![Alt text](Pictures/password1.png)
+		<center>图1-4.</center> 
+		![Alt text](Pictures/password2.png)  
+		<center>图1-5.</center>
+		![Alt text](Pictures/finished.png)  
+		<center>图1-6.</center>
 	3. 检验安装，打开系统偏好设置，可以看到MySQL安装成功，详情见下图：
 	![Alt text](Pictures/check1.png)  
+	<center>图1-7.</center>  
 	![Alt text](Pictures/check2.png)  
-	![Alt text](Pictures/check3.png). 
+	<center>图1-8.</center>  
+	![Alt text](Pictures/check3.png)  
+	<center>图1-9.</center>
 	4. MySQL已经安装完毕，接下来要将它与终端连接，详情见下图：  
 	添加MySQL运行路径：
 	`$ PATH="$PATH":/usr/local/mysql/bin`  
@@ -30,31 +54,75 @@
 	这是由于我没有第3步将MySQL打开，打开MySQL，重新输入并回车，顺利登录MySQL：  
 	![Alt text](Pictures/Success.png)
   
-+ **安装数据库管理软件DBeaver：**  
-	1. 访问 [DBeaver官网下载页](https://dev.mysql.com/downloads/mysql/) 并下载DBeaver，详情见下图：  
-	![Alt text](Pictures/Install.png)  
-	<center>图1-1.下载</center> 
-	2. 下载完成后直接双击安装包进行安装，一直点继续就好；  
-	3. 安装完毕后在启动台找到DBeaver并打开，将其连接数据库（打开后会自动提示连接数据库），详情见下图：  
-	![Alt text](Pictures/Connect.png)   
+### <div id="112-安装数据库管理软件DBeaver">1.1.2 安装数据库管理软件DBeaver</div>
+ 
+1. 访问 [DBeaver官网下载页](https://dev.mysql.com/downloads/mysql/) 并下载DBeaver，详情见下图：  
+![Alt text](Pictures/Install.png)  
+	<center>图1-1.下载</center>  
+ 
+2. 下载完成后直接双击安装包进行安装，一直点继续就好；  
+3. 安装完毕后在启动台找到DBeaver并打开，将其连接数据库（打开后会自动提示连接数据库），详情见下图：  
+![Alt text](Pictures/Connect.png)   
 	<center>图1-2.连接数据库</center>  
-	![Alt text](Pictures/ConnectionSetting.png)  
-	<center>图1-3.连接设置</center> 
-	4. 连接MySQL数据库完毕后，会提示是否建立一个数据库，我嫌自己建数据库麻烦，所以就同意建立了一个数据库，方便自己尽快尝试SQL操作，上述操作完毕后的DBeaver如下：  
-	 ![Alt text](Pictures/Ok.png)  
+	  
+![Alt text](Pictures/ConnectionSetting.png)  
+	<center>图1-3.连接设置</center>  
+	 
+4. 连接MySQL数据库完毕后，会提示是否建立一个数据库，我嫌自己建数据库麻烦，所以就同意建立了一个数据库，方便自己尽快尝试SQL操作，上述操作完毕后的DBeaver如下：  
+![Alt text](Pictures/Ok.png)  
 	 <center>图1-4.DBeaver</center>  
 	 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;初步安装使用MySQL顺利完成，接下来可以愉快地学习SQL了。我会在以后博客中持续记录自己学习SQL的心得。
   
+### <div id="113-DBeaver创建MySQL数据库">1.1.3 DBeaver创建MySQL数据库</div>
+1. 启动MySQL数据库，具体见[]()图1-8；  
+2. 打开DBeaver,在窗口左侧查看已连接数据库列表，查看是否有带有"localhost"的选项（图1-1），如果有则跳到第4步；  
+![Alt text](Pictures/localhost.png)  
+	<center>图1-1.本地服务器</center>
+	
+3. 创建localhost：在以连接数据列表中右键选择“creat连接”（图1-6），之后步骤和[安装数据库管理软件DBeaver]()中第3步之后一样；
+	> loclahost指本地数据库服务器，它不会解析成ip，也不会占用网卡、网络资源，不受网络防火墙和网卡相关的的限制。  
+4. 双击有"localhost"的选项（此时可能会出现报错，见下文[出现问题及解决](#出现问题及解决)），展开之后右键"数据库"，选择新建数据库（图1-2）；  
+![Alt text](Pictures/CreatDB.png)  
+	<center>图1-2.创建数据库</center>
+	  
+5. 将数据库命名为自己想要的名字；
+6. 若数据库有中文，Charset最好选为gbk，若无则保持默认；
+7. 点击“确定”，MySQL数据库创建完毕。  
+<div id="出现问题及解决">**出现问题及解决：**
 
-### 1.1.2 参考  
+`Public Key Retrieval is not allowed`
+	  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该报错表示不允许客户端从服务器获取公钥。可以通过修改驱动属性`allowPublicKeyRetrieval=true`来解决该问题，详情见下图：
+	  
+![Alt text](Pictures/connection_setting.png)  
+	<center>图1-3.编辑连接</center> 
+	 
+![Alt text](Pictures/driver_properties.png)  
+	<center>图1-4.PublicKeyRetrieval属性</center>   
+	  
+`No timezone mapping entry for '自动检测'`
+	  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该报错表示服务器时区有问题。一样通过修改驱动属性来解决该问题，详情见下图：
+	  
+![Alt text](Pictures/timezone.png) 
+    <center>图1-5.timezone属性</center>
+	  
+
+### <div id="114-参考">1.1.4 参考</div>  
 1. [mac 安装mysql详细教程](https://www.jianshu.com/p/07a9826898c0) 
-2. [第 28 天：安裝/使用 DBeaver 管理資料庫](https://ithelp.ithome.com.tw/articles/10196383)  
+2. [第 28 天：安裝/使用 DBeaver 管理資料庫](https://ithelp.ithome.com.tw/articles/10196383)
+**DBeaver创建MySQL数据库**
+[1] Ben Forta.[SQL必知必会-中文-第4版](https://github.com/Roggu123/DataAnalysis/blob/master/References/SQL必知必会-中文-第4版..pdf)  
+[2] Jiezi.[连接 MYSQL 8.X 版本报错解决](https://lequ7.com/2019/04/08/richang/lian-jie-MySQL-8x-ban-ben-bao-cuo-jie-jue/)  
+[3] serge-rider.[Timezone and MySQL Connector](https://github.com/dbeaver/dbeaver/issues/3599)  
+[4] zyz511919766.[MySQL 中 localhost 与 127.0.0.1 的区别](https://blog.csdn.net/zyz511919766/article/details/21384791) 
   
-## 1.2 Mac安装并使用R
-### 1.2.1 前言
+  
+## <div id="12-Mac安装并使用R">1.2 Mac安装并使用R</div>
+### <div id="121-前言">1.2.1 前言</div>
 由于今后工作可能从事数据分析，所以最近在通过《深入浅出数据分析》这本书进行数据分析的入门学习，书中有一部分内容是用R来进行分析学习，所以我尝试学习了一下R的安装使用，在此记录下来。
-### 1.2.2 过程记录  
+### <div id="112-安装">1.2.2 安装</div>  
 1. 访问[官网](https://cran.r-project.org/mirrors.html) 并下载R，详情见下图：  
 ![Alt text](Pictures/Mirror.png)  
 <center>图2-1.选择镜像
@@ -86,11 +154,52 @@ In file(filename, "r", encoding = encoding) :
  + 根据csv文件内容画出直方图`hist(employees$received, breaks=50)`  
  ![Alt text](Pictures/histogram.png)  
 3. 结果和书中展示的结果相同，R安装成功，初步体验了R的使用，和Matlab有点相似而且不收费，可以继续开心学习了。
+
+### <div id="123-使用">1.2.3 使用</div>  
++ 直方图  
+ 1. 绘制直方图 `hist(data, breaks)`  
+ **data：**表示要绘制的数据；  
+ **breaks：**告诉R如何分组，指定格式有多种；
+   
+		>第一种，给定一个向量，指出不同的断点，如`hist(data,breaks=c(0.5, 1.5, 2.5, 3.5))`；  
+第二种，指定分隔好的区间的个数，会根据区间个数自动去计算区>间的大小，如上文所示。  
+
+		**freq：**逻辑值，默认值为TRUE , y轴显示的是每个区间内的频数，FALSE, 代表显示的是频率（= 频数/ 总数），如`hist(data, breaks = 50, freq = F)`  
+		**probability：** 逻辑值，和 freq 参数的作用正好相反，TRUE 代表频率， FALSE 代表频数  
+		[更多详情](https://www.cnblogs.com/xudongliang/p/6913363.html)  
+ 2. 保存直方图  
+
+   		````
+		> png("路径名/图片名.png")
+		> hist(data, breaks=50, ...)
+		> dev.off()
+		```` 
+		 
++ 导入数据
+ 1. 导入csv `read.csv(file, header, sep = ",",quote="\"", dec=".",
+fill,comment.char="")`  
+**参数解释：**   
+参数`flie`表示导入文件，为文件绝对或相对路径；  
+参数`header`表示是否在文件第一行显示标题，默认为TRUE；  
+参数`seq`指定分隔符，默认为空格；参数`quote`表示引号，默认为双引号；  
+参数`dec`表示小数点，默认为`.`；  
+参数`fill`表示是否填充，即遇到行不相等的情况，空白域自动添加既定值，默认填充；  
+参数`comment.char`指定用于表示注释的引导符号。  
+**上述参数除了`file`外，一般设定为默认就可以。**  
+ 2. 导入其它文件  
+ `read.table(file, header = FALSE, sep ="", quote = "\"'",
+dec = ".", skip = 0,
+strip.white = FALSE, blank.lines.skip =TRUE,
+comment.char = "#")`  
+各参数含义和`read.csv()`差不多。
   
-### 1.2.3 参考  
+### <div id="124-参考">1.2.4 参考</div>  
 1. [R（1）Mac OS 下安装R语言开发环境](https://blog.csdn.net/freewebsys/article/details/45825267)  
 2. [R语言的各种报错及其解决方法](https://blog.csdn.net/Bone_ACE/article/details/47324233)  
-3. [小白入门R语言时遇到的问题](https://zhuanlan.zhihu.com/p/26352990)
+3. [小白入门R语言时遇到的问题](https://zhuanlan.zhihu.com/p/26352990)  
+4. [R语言hist绘图函数](https://www.cnblogs.com/xudongliang/p/6913363.html)   
+**read.csv用法解析** 
+5. [R语言——read.table;read.csv（读取外部数据）](https://blog.csdn.net/AnneQiQi/article/details/51085675)
 
   
  
