@@ -26,20 +26,20 @@ Table of Contents
 <center>图1-2.下载</center> 
 	2. 双击安装包`mysql-8.0.16-macos10.14-x86_64.dmg` ，之后开始安装过程，一直点击`继续`就好，详情见下图：  
 		![Alt text](Pictures/Install1.png)  
-		<center>图1-3.</center> 
+		<center>图1-3.继续</center> 
 		![Alt text](Pictures/password1.png)
-		<center>图1-4.</center> 
+		<center>图1-4.加密方式</center> 
 		![Alt text](Pictures/password2.png)  
-		<center>图1-5.</center>
+		<center>图1-5.设置密码</center>
 		![Alt text](Pictures/finished.png)  
-		<center>图1-6.</center>
+		<center>图1-6.完成</center>
 	3. 检验安装，打开系统偏好设置，可以看到MySQL安装成功，详情见下图：
 	![Alt text](Pictures/check1.png)  
-	<center>图1-7.</center>  
+	<center>图1-7.系统偏好设置</center>  
 	![Alt text](Pictures/check2.png)  
-	<center>图1-8.</center>  
+	<center>图1-8.启动MySQL</center>  
 	![Alt text](Pictures/check3.png)  
-	<center>图1-9.</center>
+	<center>图1-9.查看MySQL路径设置</center>
 	4. MySQL已经安装完毕，接下来要将它与终端连接，详情见下图：  
 	添加MySQL运行路径：
 	`$ PATH="$PATH":/usr/local/mysql/bin`  
@@ -52,25 +52,26 @@ Table of Contents
 	回车后要求输入密码，我正确输入密码后出现报错：  
 	`ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)`  
 	这是由于我没有第3步将MySQL打开，打开MySQL，重新输入并回车，顺利登录MySQL：  
-	![Alt text](Pictures/Success.png)
+	![Alt text](Pictures/Success.png)  
+	<center>图1-10.MySQL连接终端</center>
   
 ### <div id="112-安装数据库管理软件DBeaver">1.1.2 安装数据库管理软件DBeaver</div>
  
 1. 访问 [DBeaver官网下载页](https://dev.mysql.com/downloads/mysql/) 并下载DBeaver，详情见下图：  
 ![Alt text](Pictures/Install.png)  
-	<center>图1-1.下载</center>  
+	<center>图2-1.下载</center>  
  
 2. 下载完成后直接双击安装包进行安装，一直点继续就好；  
 3. 安装完毕后在启动台找到DBeaver并打开，将其连接数据库（打开后会自动提示连接数据库），详情见下图：  
 ![Alt text](Pictures/Connect.png)   
-	<center>图1-2.连接数据库</center>  
+	<center>图2-2.连接数据库</center>  
 	  
 ![Alt text](Pictures/ConnectionSetting.png)  
-	<center>图1-3.连接设置</center>  
+	<center>图2-3.连接设置</center>  
 	 
 4. 连接MySQL数据库完毕后，会提示是否建立一个数据库，我嫌自己建数据库麻烦，所以就同意建立了一个数据库，方便自己尽快尝试SQL操作，上述操作完毕后的DBeaver如下：  
 ![Alt text](Pictures/Ok.png)  
-	 <center>图1-4.DBeaver</center>  
+	 <center>图2-4.DBeaver</center>  
 	 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;初步安装使用MySQL顺利完成，接下来可以愉快地学习SQL了。我会在以后博客中持续记录自己学习SQL的心得。
   
@@ -78,13 +79,13 @@ Table of Contents
 1. 启动MySQL数据库，具体见[]()图1-8；  
 2. 打开DBeaver,在窗口左侧查看已连接数据库列表，查看是否有带有"localhost"的选项（图1-1），如果有则跳到第4步；  
 ![Alt text](Pictures/localhost.png)  
-	<center>图1-1.本地服务器</center>
+	<center>图3-1.本地服务器</center>
 	
 3. 创建localhost：在以连接数据列表中右键选择“creat连接”（图1-6），之后步骤和[安装数据库管理软件DBeaver]()中第3步之后一样；
 	> loclahost指本地数据库服务器，它不会解析成ip，也不会占用网卡、网络资源，不受网络防火墙和网卡相关的的限制。  
 4. 双击有"localhost"的选项（此时可能会出现报错，见下文[出现问题及解决](#出现问题及解决)），展开之后右键"数据库"，选择新建数据库（图1-2）；  
 ![Alt text](Pictures/CreatDB.png)  
-	<center>图1-2.创建数据库</center>
+	<center>图3-2.创建数据库</center>
 	  
 5. 将数据库命名为自己想要的名字；
 6. 若数据库有中文，Charset最好选为gbk，若无则保持默认；
@@ -96,17 +97,17 @@ Table of Contents
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该报错表示不允许客户端从服务器获取公钥。可以通过修改驱动属性`allowPublicKeyRetrieval=true`来解决该问题，详情见下图：
 	  
 ![Alt text](Pictures/connection_setting.png)  
-	<center>图1-3.编辑连接</center> 
+	<center>图3-3.编辑连接</center> 
 	 
 ![Alt text](Pictures/driver_properties.png)  
-	<center>图1-4.PublicKeyRetrieval属性</center>   
+	<center>图3-4.PublicKeyRetrieval属性</center>   
 	  
 `No timezone mapping entry for '自动检测'`
 	  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该报错表示服务器时区有问题。一样通过修改驱动属性来解决该问题，详情见下图：
 	  
 ![Alt text](Pictures/timezone.png) 
-    <center>图1-5.timezone属性</center>
+    <center>图3-5.timezone属性</center>
 	  
 
 ### <div id="114-参考">1.1.4 参考</div>  
