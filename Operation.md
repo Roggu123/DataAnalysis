@@ -65,7 +65,6 @@ Table of Contents
 3. 安装完毕后在启动台找到DBeaver并打开，将其连接数据库（打开后会自动提示连接数据库），详情见下图：  
 ![Alt text](Pictures/Connect.png)   
 	<center>图2-2.连接数据库</center>  
-	  
 ![Alt text](Pictures/ConnectionSetting.png)  
 	<center>图2-3.连接设置</center>  
 	 
