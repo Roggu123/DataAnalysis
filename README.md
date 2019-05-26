@@ -2,11 +2,12 @@
 This repository record My study of DataAnalysis including operation and conception.  
 学习数据分析的过程记录，总结，以及资料整理收集
 ## 目录
-<br>**Reference**------- 数据分析学习的参考资料
-<br>**hfda_data**------- 深入浅出数据分析下载资源<br>**hfda_operat**---- 深入浅出数据分析R代码
-<br>**Pictures**--------- 博客当中用到的图片
-<br>**Concept**--------- 数据学习基础概念总结([初学SQL—入门概念](https://blog.csdn.net/lrglgy/article/details/90298842)）
-<br>**Operation**------- 数据学习基础操作总结([Mac安装连接MySQL(从零开始)](https://blog.csdn.net/lrglgy/article/details/90302029)     [Mac安装并使用R](https://blog.csdn.net/lrglgy/article/details/90297731))
+<br>**[Reference](References)**------- 数据分析学习的参考资料
+<br>**[hfda_data](hfda_data)**------- 深入浅出数据分析下载资源
+<br>**[hfda_operat](hfda_operat)**---- 深入浅出数据分析R代码
+<br>**[Pictures](Pictures)**--------- 博客当中用到的图片
+<br>**[Concept](Concept.md)**--------- 数据学习基础概念总结([初学SQL—入门概念](https://blog.csdn.net/lrglgy/article/details/90298842)）
+<br>**[Operation](Operation.md)**------- 数据学习基础操作总结([Mac安装连接MySQL(从零开始)](https://blog.csdn.net/lrglgy/article/details/90302029)     [Mac安装并使用R](https://blog.csdn.net/lrglgy/article/details/90297731))
 
 ## 入门参考
 + **SQL**
@@ -53,6 +54,8 @@ This repository record My study of DataAnalysis including operation and concepti
 + **第四阶段**  
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数据库原理如Hive等知识  
+
+  
 
 
 
