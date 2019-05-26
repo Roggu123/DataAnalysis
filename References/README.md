@@ -4,4 +4,8 @@
 <br><big>**2.[谁说菜鸟不会数据分析,入门篇 - 张文霖 (2013)](/Users/ruogulu/Desktop/Study/DataAnalysis/References/[谁说菜鸟不会数据分析(+入门篇)].张文霖.全彩版【neikuw.com】.pdf)**</big>  
 <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;*还没有看*
 <br><big>**3.[谁说菜鸟不会数据分析,工具篇 - 张文霖 (2013)](/Users/ruogulu/Desktop/Study/DataAnalysis/References/[谁说菜鸟不会数据分析(工具篇)].张文霖.影印版【neikuw.com】.pdf)**</big>  
-<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;*还没有看* 
+<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;*还没有看*  
+<big>**4.[SQL必知必会-中文-第4版](SQL必知必会-中文-第4版.pdf)**</big>  
+<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;*学习SQL非常好的书籍，由浅入深，有理论有实践*  
+<big>**5.[SQL学习指南(第2版)](2、SQL学习指南(第2版)@www.java1234.com.pdf)**</big>  
+<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;*还没有看*     
