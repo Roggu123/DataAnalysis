@@ -11,6 +11,10 @@ Table of Contents
          * [1.2.1 前言](#121-前言)
          * [1.2.2 安装](#122-安装)
          * [1.2.3 使用](#123-使用)
+          * [直方图](#直方图)  
+          * [线图](#线图)
+          * [导入数据](#导入数据)  
+          * [导出文件](#导出文件) 
          * [1.2.4 参考](#124-参考)
 
 # <center>Operation</center>
@@ -156,7 +160,7 @@ In file(filename, "r", encoding = encoding) :
 3. 结果和书中展示的结果相同，R安装成功，初步体验了R的使用，和Matlab有点相似而且不收费，可以继续开心学习了。
 
 ### <div id="123-使用">1.2.3 使用</div>  
-+ 直方图  
++ <div id="直方图">直方图<div>  
  1. 绘制直方图 `hist(data, breaks)`  
  **data：**表示要绘制的数据；  
  **breaks：**告诉R如何分组，指定格式有多种；
@@ -169,13 +173,46 @@ In file(filename, "r", encoding = encoding) :
 		[更多详情](https://www.cnblogs.com/xudongliang/p/6913363.html)  
  2. 保存直方图  
 
-   		````
-		> png("路径名/图片名.png")
-		> hist(data, breaks=50, ...)
-		> dev.off()
-		```` 
+ ```` r
+ > png("路径名/图片名.png")
+ > hist(data, breaks=50, ...)
+ > dev.off()
+ ````
+		
++ <div id="线图">线图</div>
+ 1. 绘制线图
+ `abline(a=NULL, b=NULL, h = NULL, v=NULL, reg=NULL, coef=NULL, untf=FALSE, ol="", ...)`  
+**参数解释：**  
+参数`a`表示绘制直线的截距；  
+参数`b`表示绘制直线的斜率；  
+参数`h`表示绘制水平线时的纵轴值；  
+参数`v`表示绘制垂直线时的横轴值；  
+参数`reg`表示一个回归对象名称，即回归直线的名称；  
+参数`coef`是一个二维向量，给出了截距和斜率；
+参数`untf`是一个逻辑值，表示是否对数变换，若为TRUE且坐标中至少一个进行了对数变换，则会画出未对数变换前的曲线。  
+**示例；**  
+在散点图中画出两条直线myLmSmall`y=0.8+0.9x`和myLmBig`y=7.8+0.3x`,输入如下代码：  
+
+			> plot(employees$requested[employees$negotiated == TRUE],  
+			employees$received[employees$negotiated==TRUE])  
+			> abline(myLmSmall,col="blue")  
+			> abline(myLmBig,col="red")  
+ 			
+ 		![ALt text](/Users/ruogulu/Desktop/Study/DataAnalysis/hfda_data/ch11_predict.png) 			   
+   
+   2. 保存线图  
+ 
+ 		``` r
+ 		# 和直方图一样  
+ 		> png("~/Desktop/Study/DataAnalysis/hfda_data/ch11_predict.png")  
+ 		> plot(employees$requested[employees$negotiated == TRUE],  
+ 		employees$received[employees$negotiated==TRUE])  
+ 		> abline(myLmSmall,col="blue")
+ 		> abline(myLmBig,col="red")
+ 		> dev.off()
+ 		``` 
 		 
-+ 导入数据
++ <div id="导入数据">导入数据</div>
  1. 导入csv `read.csv(file, header, sep = ",",quote="\"", dec=".",
 fill,comment.char="")`  
 **参数解释：**   
@@ -186,12 +223,18 @@ fill,comment.char="")`
 参数`fill`表示是否填充，即遇到行不相等的情况，空白域自动添加既定值，默认填充；  
 参数`comment.char`指定用于表示注释的引导符号。  
 **上述参数除了`file`外，一般设定为默认就可以。**  
- 2. 导入其它文件  
+ 2. 导入其它表格  
  `read.table(file, header = FALSE, sep ="", quote = "\"'",
 dec = ".", skip = 0,
 strip.white = FALSE, blank.lines.skip =TRUE,
 comment.char = "#")`  
-各参数含义和`read.csv()`差不多。
+各参数含义和`read.csv()`差不多。  
++ <div id="导出文件">导出文件</div>  
+ 1. 保存为R文件  
+ `save.image("路径名/文件名.RData")`  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保存为R文件可以保存之前运行时产生的变量数据等，打开之后可以继续上次的运行结果进行操作。
+ 2. 保存为txt文件  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;直接在界面选择`file -> save as`就可以将代码保存为txt格式，方便详细查看代码，但不会保存之前产生的变量数据，也无法用R打开。
   
 ### <div id="124-参考">1.2.4 参考</div>  
 1. [R（1）Mac OS 下安装R语言开发环境](https://blog.csdn.net/freewebsys/article/details/45825267)  
@@ -199,7 +242,11 @@ comment.char = "#")`
 3. [小白入门R语言时遇到的问题](https://zhuanlan.zhihu.com/p/26352990)  
 4. [R语言hist绘图函数](https://www.cnblogs.com/xudongliang/p/6913363.html)   
 **read.csv用法解析** 
-5. [R语言——read.table;read.csv（读取外部数据）](https://blog.csdn.net/AnneQiQi/article/details/51085675)
+5. [R语言——read.table;read.csv（读取外部数据）](https://blog.csdn.net/AnneQiQi/article/details/51085675)  
+**线图**  
+[6] 优雅的代码.[在回归方程中可以添加趋势线](http://www.sohu.com/a/252882522_100261403)  
+**R的保存**  
+[7] 孙洪双.[R学习笔记（一） 变量的保存与加载](https://zhuanlan.zhihu.com/p/29743511)
 
   
  
