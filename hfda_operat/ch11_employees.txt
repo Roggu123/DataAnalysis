@@ -1,0 +1,80 @@
+
+R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+During startup - Warning messages:
+1: Setting LC_CTYPE failed, using "C" 
+2: Setting LC_COLLATE failed, using "C" 
+3: Setting LC_TIME failed, using "C" 
+4: Setting LC_MESSAGES failed, using "C" 
+5: Setting LC_MONETARY failed, using "C" 
+[R.app GUI 1.70 (7657) x86_64-apple-darwin15.6.0]
+
+WARNING: You're using a non-UTF8 locale, therefore only ASCII characters will work.
+Please read R for Mac OS X FAQ (see Help) section 9 and adjust your system preferences accordingly.
+[Workspace restored from /Users/ruogulu/.RData]
+[History restored from /Users/ruogulu/.Rapp.history]
+
+> employees <- employees <- read.csv("~/Desktop/Study/DataAnalysis/hfda_data/hfda_ch10_employees.csv",header=TRUE)
+> myLm <- lm(received[negotiated==TRUE]~requested[negotiated==TRUE],data=employees)
+> summary(myLm)
+
+Call:
+lm(formula = received[negotiated == TRUE] ~ requested[negotiated == 
+    TRUE], data = employees)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-13.5560  -0.5914  -0.0601   0.3879  16.9173 
+
+Coefficients:
+                              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                    2.31213    0.21775   10.62   <2e-16 ***
+requested[negotiated == TRUE]  0.72507    0.02573   28.18   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.298 on 998 degrees of freedom
+Multiple R-squared:  0.4431,	Adjusted R-squared:  0.4425 
+F-statistic:   794 on 1 and 998 DF,  p-value: < 2.2e-16
+
+> summary(myLm)$sigma
+[1] 2.297743
+> myLmBig <- lm(received[negotiated=TRUE & requested >10]~requested[negotiated = TRUE & requested > 10],data = employees)
+> myLmSmall <- lm(received[negotiated=TRUE & requested<= 10]~requested[negotiated = TRUE & requested <= 10],data = employees)
+> summary(myLmBig)$coefficients
+                                              Estimate Std. Error  t value
+(Intercept)                                   7.813403  1.8760371 4.164845
+requested[negotiated = TRUE & requested > 10] 0.302609  0.1420151 2.130824
+                                                  Pr(>|t|)
+(Intercept)                                   4.997597e-05
+requested[negotiated = TRUE & requested > 10] 3.457618e-02
+> summary(myLmBig)$sigma
+[1] 4.544424
+> summary(myLmSmall)$coefficients
+                                                Estimate  Std. Error   t value
+(Intercept)                                    4.9165691 0.026593955 184.87544
+requested[negotiated = TRUE & requested <= 10] 0.3773398 0.006881601  54.83314
+                                               Pr(>|t|)
+(Intercept)                                           0
+requested[negotiated = TRUE & requested <= 10]        0
+> summary(myLmSmall)$sigma
+[1] 1.20039
+> 
+objc[16153]: Class FIFinderSyncExtensionHost is implemented in both /System/Library/PrivateFrameworks/FinderKit.framework/Versions/A/FinderKit (0x7fffa81413d8) and /System/Library/PrivateFrameworks/FileProvider.framework/OverrideBundles/FinderSyncCollaborationFileProviderOverride.bundle/Contents/MacOS/FinderSyncCollaborationFileProviderOverride (0x10d7c5f50). One of the two will be used. Which one is undefined.
+> 
