@@ -1,0 +1,89 @@
+
+R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+During startup - Warning messages:
+1: Setting LC_CTYPE failed, using "C" 
+2: Setting LC_COLLATE failed, using "C" 
+3: Setting LC_TIME failed, using "C" 
+4: Setting LC_MESSAGES failed, using "C" 
+5: Setting LC_MONETARY failed, using "C" 
+[R.app GUI 1.70 (7657) x86_64-apple-darwin15.6.0]
+
+WARNING: You're using a non-UTF8 locale, therefore only ASCII characters will work.
+Please read R for Mac OS X FAQ (see Help) section 9 and adjust your system preferences accordingly.
+[Workspace restored from /Users/ruogulu/.RData]
+[History restored from /Users/ruogulu/.Rapp.history]
+
+> ?regex
+starting httpd help server ... done
+> hfhh <-read.csv("~/Desktop/Study/DataAnalysis/hfda_data/hfda_ch13_raw_data.csv",header=TRUE)
+> head(hfhh)
+                     PersonID.FirstName.LastName.ZIP.Phone.CallID.Time
+1 127#^Alexia#Rasmuss(ID 127)en#11422#718-534-2403#4252#01/01/08 12:32
+2  98#^Brenden#Rasmuss(ID 98)en#10015#646-812-7298#4253#01/02/08 13:17
+3          94#^Beau#Ware(ID 94)#10013#646-391-9926#4254#01/02/08 14:54
+4 127#^Alexia#Ra(ID 127)smussen#11422#718-534-2403#4255#01/03/08 15:32
+5      156#^Jacoby#Co(ID 156)ok#10045#917-808-6186#4256#01/03/08 15:52
+6  139#^Quinten#Hubba(ID 139)rd#10016#917-687-2256#4257#01/04/08 13:19
+> NewLastName <- sub("\\(.*\\)","",hfhh$LastName)
+> head(hfhh)
+                     PersonID.FirstName.LastName.ZIP.Phone.CallID.Time
+1 127#^Alexia#Rasmuss(ID 127)en#11422#718-534-2403#4252#01/01/08 12:32
+2  98#^Brenden#Rasmuss(ID 98)en#10015#646-812-7298#4253#01/02/08 13:17
+3          94#^Beau#Ware(ID 94)#10013#646-391-9926#4254#01/02/08 14:54
+4 127#^Alexia#Ra(ID 127)smussen#11422#718-534-2403#4255#01/03/08 15:32
+5      156#^Jacoby#Co(ID 156)ok#10045#917-808-6186#4256#01/03/08 15:52
+6  139#^Quinten#Hubba(ID 139)rd#10016#917-687-2256#4257#01/04/08 13:19
+> head(NewLastName)
+character(0)
+> NewLastName <- sub("\\(.*\\)","",hfhh$LastName)
+> head(NewLastName)
+character(0)
+> NewLastName <- sub("\\(.*\\)","",hfhh$LastName)
+> head(NewLastName)
+character(0)
+> hfhh <- read-csv("~/Desktop/Study/DataAnalysis/hfda_data/hfda_ch13_raw_data.csv",header=TRUE)
+Error: object 'read' not found
+> hfhh <- read.csv("~/Desktop/Study/DataAnalysis/hfda_data/hfda_ch13_raw_data.csv",header=TRUE)
+> head(hfhh)
+  PersonID FirstName          LastName   ZIP        Phone CallID
+1      127    Alexia Rasmuss(ID 127)en 11422 718-534-2403   4252
+2       98   Brenden  Rasmuss(ID 98)en 10015 646-812-7298   4253
+3       94      Beau       Ware(ID 94) 10013 646-391-9926   4254
+4      127    Alexia Ra(ID 127)smussen 11422 718-534-2403   4255
+5      156    Jacoby      Co(ID 156)ok 10045 917-808-6186   4256
+6      139   Quinten   Hubba(ID 139)rd 10016 917-687-2256   4257
+            Time
+1 2001/1/8 12:32
+2 2001/2/8 13:17
+3 2001/2/8 14:54
+4 2001/3/8 15:32
+5 2001/3/8 15:52
+6 2001/4/8 13:19
+> NewLastName <- sub("\\(.*\\)","",hfhh$LastName)
+> head(NewLastName)
+[1] "Rasmussen" "Rasmussen" "Ware"      "Rasmussen" "Cook"      "Hubbard"  
+> hfhh$LastName <-NULL
+> hfhh["LastName"] <- NewLastName
+> write.csv(hfhh,file="hfhh.csv")
+> getwd()
+[1] "/Users/ruogulu"
+> load("/Users/ruogulu/Desktop/Study/DataAnalysis/hfda_operat/ch12_relationship.RData")
+> save.image("~/Desktop/Study/DataAnalysis/hfda_operat/ch13.RData")
+> 
