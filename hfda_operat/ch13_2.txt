@@ -1,0 +1,163 @@
+
+R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+During startup - Warning messages:
+1: Setting LC_CTYPE failed, using "C" 
+2: Setting LC_COLLATE failed, using "C" 
+3: Setting LC_TIME failed, using "C" 
+4: Setting LC_MESSAGES failed, using "C" 
+5: Setting LC_MONETARY failed, using "C" 
+[R.app GUI 1.70 (7657) x86_64-apple-darwin15.6.0]
+
+WARNING: You're using a non-UTF8 locale, therefore only ASCII characters will work.
+Please read R for Mac OS X FAQ (see Help) section 9 and adjust your system preferences accordingly.
+[History restored from /Users/ruogulu/.Rapp.history]
+
+> load("/Users/ruogulu/Desktop/Study/DataAnalysis/hfda_operat/ch13.RData")
+> head(NewLastName)
+[1] "Rasmussen" "Rasmussen" "Ware"      "Rasmussen" "Cook"      "Hubbard"  
+> hfhhSorted <- hfhh[order(hfhh$PersonID)]
+Error in `[.data.frame`(hfhh, order(hfhh$PersonID)) : 
+  undefined columns selected
+> head(hfhh)
+  PersonID FirstName   ZIP        Phone CallID           Time  LastName
+1      127    Alexia 11422 718-534-2403   4252 2001/1/8 12:32 Rasmussen
+2       98   Brenden 10015 646-812-7298   4253 2001/2/8 13:17 Rasmussen
+3       94      Beau 10013 646-391-9926   4254 2001/2/8 14:54      Ware
+4      127    Alexia 11422 718-534-2403   4255 2001/3/8 15:32 Rasmussen
+5      156    Jacoby 10045 917-808-6186   4256 2001/3/8 15:52      Cook
+6      139   Quinten 10016 917-687-2256   4257 2001/4/8 13:19   Hubbard
+> hfhhSorted <- hfhh[order(hfhh$PersonID),]
+> head(hfhhSorted, n=50)
+     PersonID FirstName   ZIP        Phone CallID            Time    LastName
+63          1    Jaylen 10006 646-376-4466   4314  01/29/08 11:19 Christensen
+435         1    Jaylen 10006 646-376-4466   4686  07/30/08 10:27 Christensen
+540         1    Jaylen 10006 646-376-4466   4791  2010/6/8 16:08 Christensen
+647         1    Jaylen 10006 646-376-4466   4898  2012/6/8 15:50 Christensen
+712         1    Jaylen 10006 646-376-4466   4963 2001/11/9 15:20 Christensen
+831         1    Jaylen 10006 646-376-4466   5082  03/17/09 11:13 Christensen
+974         1    Jaylen 10006 646-376-4466   5225  05/22/09 14:58 Christensen
+20          2  Reynaldo 11223 646-382-3431   4271  2001/11/8 8:06      Harris
+347         2  Reynaldo 11223 646-382-3431   4598  06/17/08 08:01      Harris
+421         2  Reynaldo 11223 646-382-3431   4672  07/20/08 14:31      Harris
+575         2  Reynaldo 11223 646-382-3431   4826  10/28/08 13:58      Harris
+627         2  Reynaldo 11223 646-382-3431   4878  11/24/08 14:44      Harris
+737         2  Reynaldo 11223 646-382-3431   4988  01/28/09 08:39      Harris
+892         2  Reynaldo 11223 646-382-3431   5143  04/16/09 15:58      Harris
+934         2  Reynaldo 11223 646-382-3431   5185   2005/4/9 8:36      Harris
+971         2  Reynaldo 11223 646-382-3431   5222  05/19/09 15:14      Harris
+311         3    Yandel 10099 718-510-6575   4562  05/27/08 15:13    Franklin
+438         3    Yandel 10099 718-510-6575   4689  07/31/08 09:10    Franklin
+666         3    Yandel 10099 718-510-6575   4917  12/18/08 15:36    Franklin
+1074        3    Yandel 10099 718-510-6575   5325  07/14/09 14:51    Franklin
+183         4       Lia 11230 718-664-9574   4434  03/25/08 09:13       Short
+305         4       Lia 11230 718-664-9574   4556  05/24/08 14:54       Short
+528         4       Lia 11230 718-664-9574   4779  09/29/08 09:06       Short
+658         4       Lia 11230 718-664-9574   4909  12/15/08 16:33       Short
+841         4       Lia 11230 718-664-9574   5092  03/23/09 09:54       Short
+1025        4       Lia 11230 718-664-9574   5276  06/15/09 10:54       Short
+52          5      Cael 10026 646-623-7673   4303  01/23/08 11:03      Glover
+197         5      Cael 10026 646-623-7673   4448  03/29/08 08:00      Glover
+336         5      Cael 10026 646-623-7673   4587  2006/12/8 8:03      Glover
+394         5      Cael 10026 646-623-7673   4645  2007/5/8 10:15      Glover
+419         5      Cael 10026 646-623-7673   4670  07/20/08 11:20      Glover
+568         5      Cael 10026 646-623-7673   4819  10/25/08 09:37      Glover
+796         5      Cael 10026 646-623-7673   5047  02/25/09 10:20      Glover
+857         5      Cael 10026 646-623-7673   5108  03/28/09 11:50      Glover
+911         5      Cael 10026 646-623-7673   5162  04/25/09 10:52      Glover
+867         6   Patrick 11222 917-284-5780   5118  2004/4/9 12:51       Hodge
+12          7 Jaqueline 10106 347-409-5439   4263  2001/7/8 11:50       Ewing
+318         7 Jaqueline 10106 347-409-5439   4569   2006/1/8 9:04       Ewing
+417         7 Jaqueline 10106 347-409-5439   4668  07/18/08 15:03       Ewing
+785         7 Jaqueline 10106 347-409-5439   5036  02/20/09 10:49       Ewing
+10          8    Darren 10120 212-220-3311   4261  2001/5/8 16:11       Burns
+73          8    Darren 10120 212-220-3311   4324  2002/1/8 12:59       Burns
+300         8    Darren 10120 212-220-3311   4551  05/22/08 11:28       Burns
+375         8    Darren 10120 212-220-3311   4626  06/28/08 16:35       Burns
+504         8    Darren 10120 212-220-3311   4755 2009/12/8 13:58       Burns
+635         8    Darren 10120 212-220-3311   4886  11/27/08 12:25       Burns
+1080        8    Darren 10120 212-220-3311   5331  07/19/09 11:58       Burns
+139         9 Rigoberto 11358 212-537-6720   4390   2003/4/8 8:18        Mayo
+560         9 Rigoberto 11358 212-537-6720   4811  10/20/08 09:06        Mayo
+882         9 Rigoberto 11358 212-537-6720   5133  2004/9/9 12:19        Mayo
+> hfhhNameOnly <- hfhhSorted
+> hfhhNameOnly$CallID <- NULL
+> hfhhNameONly$Time <- NULL
+Error in hfhhNameONly$Time <- NULL : object 'hfhhNameONly' not found
+> hfffNameOnly$ime <- NULL
+Error in hfffNameOnly$ime <- NULL : object 'hfffNameOnly' not found
+> hfhhNameOnly$Time <- NULL
+> hfhhNameOnly <- unique(hfhhNameOnly)
+> head(hfhhNameOnly, n=50)
+     PersonID FirstName   ZIP        Phone    LastName
+63          1    Jaylen 10006 646-376-4466 Christensen
+20          2  Reynaldo 11223 646-382-3431      Harris
+311         3    Yandel 10099 718-510-6575    Franklin
+183         4       Lia 11230 718-664-9574       Short
+52          5      Cael 10026 646-623-7673      Glover
+867         6   Patrick 11222 917-284-5780       Hodge
+12          7 Jaqueline 10106 347-409-5439       Ewing
+10          8    Darren 10120 212-220-3311       Burns
+139         9 Rigoberto 11358 212-537-6720        Mayo
+28         10     Aliya 11366 917-613-6421     Hoffman
+154        11      Luna 10006 718-771-3686    Martinez
+288        12 Angelique 11413 917-252-3830      Oliver
+114        13    Melvin 10304 212-836-6512     Buckner
+231        14  Jeramiah 11221 646-228-5446       Potts
+275        15      Owen 10453 212-476-4876       Noble
+624        16    Dayana 10170 347-385-1742        Kidd
+103        17     Gemma 10069 646-768-1792     Donovan
+296        18      Jack 11218 646-522-7235       Bruce
+330        19  Salvador 10028 347-276-8948     Emerson
+85         20      Reed 10168 646-547-6398     Flowers
+1033       21   Jazmine 10029 718-605-9088       Foley
+299        22  Hadassah 11377 917-823-9292      Abbott
+78         23  Jocelynn 11105 718-722-6313        Buck
+233        24   Zaniyah 11103 718-604-7729        Case
+170        25    Khalil 11419 917-361-9803      Medina
+361        26    Jaylan 10123 212-403-5255      Martin
+74         27     Aaden 11233 212-683-8794        Lowe
+663        28   Tristin 10467 212-510-3235      Barron
+158        29 Alexander 10278 917-261-3926       Cantu
+51         30    Alexus 10473 646-223-6544      Crosby
+346        31    Jazmin 11237 718-294-7531     Schmidt
+66         32     Reese 11208 212-614-7981        Roth
+214        33   Presley 11357 646-358-6884     Padilla
+545        34  Adrianna 10032 646-544-5915      Duncan
+145        35     Amari 10010 212-525-3571      Parker
+180        36  Kendrick 11434 917-650-7989       Floyd
+41         37     Grace 10158 646-524-8955        Rowe
+622        38    Dawson 11362 917-560-5580        Rios
+136        39   Damaris 11436 646-662-5349      Crosby
+87         40      King 11367 347-823-6645        Rose
+397        41   Ryleigh 10302 917-766-5604     Wilkins
+23         42   Stanley 10314 212-775-3412    Townsend
+37         43    Rodney 10158 646-519-3002    Stafford
+725        44     Ciara 10010 917-738-7813       Nunez
+18         45     Omari 11691 646-516-3070        Rush
+122        46   Maurice 10471 212-470-2697        Tran
+187        47    Brayan 11239 347-766-3697       Owens
+159        48    Jaylen 10464 212-432-9911       Smith
+81         49    Selina 10035 718-511-4170      Nelson
+589        50     Susan 10128 212-748-5980    Matthews
+> write.csv(hfhhNameOnly, file="~/Desktop/Study/DataAnalysis/hfda_datahfhhNameOnly.csv")
+> write.csv(hfhhNameOnly, file="~/Desktop/Study/DataAnalysis/hfda_data/hfda_datahfhhNameOnly.csv")
+> save.image("~/Desktop/Study/DataAnalysis/hfda_operat/ch13_2.RData")
+objc[22366]: Class FIFinderSyncExtensionHost is implemented in both /System/Library/PrivateFrameworks/FinderKit.framework/Versions/A/FinderKit (0x7fffa81413d8) and /System/Library/PrivateFrameworks/FileProvider.framework/OverrideBundles/FinderSyncCollaborationFileProviderOverride.bundle/Contents/MacOS/FinderSyncCollaborationFileProviderOverride (0x11ab34f50). One of the two will be used. Which one is undefined.
+> 
