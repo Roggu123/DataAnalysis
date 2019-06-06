@@ -6,13 +6,16 @@ Table of Contents
          * [1.1.1 安装MySQL](#111-安装MySQL)  
          * [1.1.2 安装数据库管理软件DBeaver](#112-安装数据库管理软件DBeaver)  
          * [1.1.3 DBeaver创建MySQL数据库](#113-DBeaver创建MySQL数据库)
-         * [1.1.4 参考](#114-参考)
+         * [1.1.4 MySQL基本操作总结](#114-MySQL基本操作总结)  
+            * [检索数据排序](#检索数据排序) 
+         * [1.1.5 参考](#115-参考)
       * [1.2 Mac安装并使用R](#12-mac安装并使用r)
          * [1.2.1 前言](#121-前言)
          * [1.2.2 安装](#122-安装)
          * [1.2.3 使用](#123-使用)
             * [直方图](#直方图)  
-            * [线图](#线图)
+            * [线图](#线图)  
+            * [整理数据](#整理数据)
             * [导入数据](#导入数据)  
             * [导出文件](#导出文件) 
          * [1.2.4 参考](#124-参考)
@@ -111,9 +114,72 @@ Table of Contents
 	  
 ![Alt text](Pictures/timezone.png) 
     <center>图3-5.timezone属性</center>
-	  
+    
+### <div id="114-MySQL基本操作总结">1.1.4 MySQL基本操作总结</div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本文是关于MySQL基本操作的总结，也是《SQL必知必会》这本书的读书笔记，将自认为的其中重要知识点摘抄总结出来。以下图所示五个表格为例进行展示与介绍。
 
-### <div id="114-参考">1.1.4 参考</div>  
+<div align="center">
+<figure class="half">
+    <img src="Pictures/11order.png" width="120" height="200"/>
+    <img src="Pictures/12customer.png" width="435" height="200"/>
+    <center>图4-1.表格Orders和Customers</center>
+</figurer>
+</div>
+
+<div align="center">
+<figure class="half">
+    <img src="Pictures/21products.png" width="265" height="240"/>
+    <img src="Pictures/22vendor.png" width="290" height="240"/>
+    <center>图4-2.表格Products和Vendors</center>
+</figurer>
+</div>
+ 
+<center>
+    <img src="Pictures/31orderitem.png" width="600" height="320">
+</center>  
+<center>图4-3.表格OrderItems</center>
+
++ **<div id="检索数据排序">检索数据排序</div>**  
+  
+1. 单列排序
+ 
+ ```
+ SELECT prod_name
+ FROM Products
+ ORDER BY prod_name;
+ ```  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将检索出的 prod\_name 数据根据 prod\_name进行排序。  
+
+2. 多列排序
+ 
+ ```SQL
+ SELECT prod_id, prod_price, prod_name
+ FROM Products
+ ORDER BY prod_price, prod_name
+ ```  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将检索出的数据 prod\_id，prod\_price，prod\_name先根据 prod_price 排序，如果有产品的价格相同则再根据 prod_name 进行排序。
+ 
+3. 按列相对位置排序  
+ 
+ ```SQL
+ SELECT prod_id, prod_price, prod_name
+ FROM Products
+ ORDER BY 2, 3;
+ ```
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用 SELECT 中列名的相对位置代替多列排序中 ORDER BY 后面的列名，依然遵循多列排序的规则。  
+ 
+4. 降序排列  
+
+ ```SQL
+ SELECT prod_id, prod_price, prod_name
+ FROM Products
+ ORDER BY prod_price DESC, prod_name;
+ ```  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一般默认进行升序排列，要降序排列时，只需在进行排序的列名后添加语句`DESC`，多列降序排列时则在每一列后面都添加语句`DESC`。  
+ 
++ **数据过滤**  
+
+### <div id="115-参考">1.1.5 参考</div>  
 1. [mac 安装mysql详细教程](https://www.jianshu.com/p/07a9826898c0) 
 2. [第 28 天：安裝/使用 DBeaver 管理資料庫](https://ithelp.ithome.com.tw/articles/10196383)
 **DBeaver创建MySQL数据库**
@@ -160,7 +226,7 @@ In file(filename, "r", encoding = encoding) :
 3. 结果和书中展示的结果相同，R安装成功，初步体验了R的使用，和Matlab有点相似而且不收费，可以继续开心学习了。
 
 ### <div id="123-使用">1.2.3 使用</div>  
-+ <div id="直方图">直方图<div>  
++ **<div id="直方图">直方图<div>**  
  1. 绘制直方图 `hist(data, breaks)`  
  **data：**表示要绘制的数据；  
  **breaks：**告诉R如何分组，指定格式有多种；
@@ -178,8 +244,8 @@ In file(filename, "r", encoding = encoding) :
  > hist(data, breaks=50, ...)
  > dev.off()
  ````
-		
-+ <div id="线图">线图</div>
+ 
+ + **<div id="线图">线图</div>**
  1. 绘制线图
  `abline(a=NULL, b=NULL, h = NULL, v=NULL, reg=NULL, coef=NULL, untf=FALSE, ol="", ...)`  
 **参数解释：**  
@@ -198,7 +264,8 @@ In file(filename, "r", encoding = encoding) :
 			> abline(myLmSmall,col="blue")  
 			> abline(myLmBig,col="red")  
  			
- 		![ALt text](/Users/ruogulu/Desktop/Study/DataAnalysis/hfda_data/ch11_predict.png) 			   
+ 	 <center>![ALt text](/Users/ruogulu/Desktop/Study/DataAnalysis/hfda_data/Pictures/ch11_predict.png)</center>
+ 		<center>图3-1.线图</center> 			   
    
    2. 保存线图  
  
@@ -211,8 +278,21 @@ In file(filename, "r", encoding = encoding) :
  		> abline(myLmBig,col="red")
  		> dev.off()
  		``` 
-		 
-+ <div id="导入数据">导入数据</div>
+
++ **<div id="整理数据">整理数据</div>**  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以利用正则表达式在**R**中指定复杂的模式以便匹配和替换文本字符串，从而进行数据清理。常用正则表达式指令如下：
+ 1. 替换字符串
+ `新列名 <- sub("被替换字符串(正则表达式模式)"，"替换字符串"，表名$列名)`
+ 2. 删除某些导致重复的列  
+ `表名$列名 <- NULL`
+ 3. 删除重复名称  
+ `列名 <- Unique(列名)`  
+ 一列当中有些名称发生重复，利用`Unique()`进行删除，重复名称所在的行也会被删除。   
+ 
+ **注意**：  
+ 在删除重复数据时可以先通过主键对数据进行排序，进一步分析数据重复的原因，然后进行列删除及重复名称删除。
+ 		 
++ **<div id="导入数据">导入数据</div>**
  1. 导入csv `read.csv(file, header, sep = ",",quote="\"", dec=".",
 fill,comment.char="")`  
 **参数解释：**   
@@ -229,7 +309,7 @@ dec = ".", skip = 0,
 strip.white = FALSE, blank.lines.skip =TRUE,
 comment.char = "#")`  
 各参数含义和`read.csv()`差不多。  
-+ <div id="导出文件">导出文件</div>  
++ **<div id="导出文件">导出文件</div>** 
  1. 保存为R文件  
  `save.image("路径名/文件名.RData")`  
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保存为R文件可以保存之前运行时产生的变量数据等，打开之后可以继续上次的运行结果进行操作。
