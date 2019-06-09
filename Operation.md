@@ -7,7 +7,9 @@ Table of Contents
          * [1.1.2 安装数据库管理软件DBeaver](#112-安装数据库管理软件DBeaver)  
          * [1.1.3 DBeaver创建MySQL数据库](#113-DBeaver创建MySQL数据库)
          * [1.1.4 MySQL基本操作总结](#114-MySQL基本操作总结)  
-            * [检索数据排序](#检索数据排序) 
+            * [检索数据排序](#检索数据排序)
+            * [数据过滤](#数据过滤)  
+            * [汇总数据](#汇总数据)  
          * [1.1.5 参考](#115-参考)
       * [1.2 Mac安装并使用R](#12-mac安装并使用r)
          * [1.2.1 前言](#121-前言)
@@ -120,16 +122,16 @@ Table of Contents
 
 <div align="center">
 <figure class="half">
-    <img src="Pictures/11order.png" width="120" height="200"/>
-    <img src="Pictures/12customer.png" width="435" height="200"/>
+    <img src="Pictures/11order.png" width="135" height="200"/>
+    <img src="Pictures/12customer.png" width="450" height="200"/>
     <center>图4-1.表格Orders和Customers</center>
 </figurer>
 </div>
 
 <div align="center">
 <figure class="half">
-    <img src="Pictures/21products.png" width="265" height="240"/>
-    <img src="Pictures/22vendor.png" width="290" height="240"/>
+    <img src="Pictures/21products.png" width="280" height="240"/>
+    <img src="Pictures/22vendor.png" width="310" height="240"/>
     <center>图4-2.表格Products和Vendors</center>
 </figurer>
 </div>
@@ -177,7 +179,67 @@ Table of Contents
  ```  
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一般默认进行升序排列，要降序排列时，只需在进行排序的列名后添加语句`DESC`，多列降序排列时则在每一列后面都添加语句`DESC`。  
  
-+ **数据过滤**  
++ **<div id="数据过滤">数据过滤</div>**  
+  
+
++ **<div id="汇总数据">汇总数据</div>**  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时不需要实际的数据本身，而需要汇总表中数据。这时就需要聚集函数来实现数据汇总，各种数据库对聚集函数的实现都非常一致。五种常用的聚集函数如下所示：  
+
+1. 返回某列的平均值
+   
+ ```
+ ELECT AVG(prod_price) AS avg_price
+ FROM Products
+ WHERE vend_id = 'DLL01';  # 添加`where`子句对特定若干行或列求均值
+ ```  
+ **注意**：  
+ NULL值：自动忽略。  
+  
+2. 返回某列最小值  
+
+ ```
+ SELECT MAX(prod_price) 
+ AS max_price
+ FROM Products;
+ ```  
+ **注意**：  
+ NULL值：自动忽略；  
+ 文本列：返回按列排序的最后一行。  
+ 
+3. 返回最大值  
+
+ ```
+ SELECT MIN(prod_price) 
+ AS max_price
+ FROM Products;
+ ```  
+
+4. 返回某列行数  
+
+ ```
+ SELECT COUNT(*) AS num_cust
+ FROM Customers;
+ ```  
+ **注意**：  
+ NULL值：COUNT(*)不会忽略，统计表中所有行；但COUNT(COLUMN)会忽略。  
+ 
+5. 对某列值求和  
+ 
+ ```
+ SELECT SUM(item_price*quantity) 
+ AS total_price
+ FROM OrderItems
+ WHERE order_num = 20005;
+ ```  
+ **注意**：
+ NULL值：自动忽略。
+
+6. 聚集不同值  
+  1. 当指定 ALL 或不指定时，包含所有行。
+  2. 当指定 DISTINCT 时，只包含不同的值。  
+
++ **<div id="组合数据">数据分组</div>**  
+  
 
 ### <div id="115-参考">1.1.5 参考</div>  
 1. [mac 安装mysql详细教程](https://www.jianshu.com/p/07a9826898c0) 
