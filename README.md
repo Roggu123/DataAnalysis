@@ -7,7 +7,7 @@ This repository record My study of DataAnalysis including operation and concepti
 <br>**[hfda_operat](hfda_operat)**---- 深入浅出数据分析R代码
 <br>**[Pictures](Pictures)**--------- 博客当中用到的图片
 <br>**[Concept](Concept.md)**--------- 数据学习基础概念总结([初学SQL—入门概念](https://blog.csdn.net/lrglgy/article/details/90298842)）
-<br>**[Operation](Operation.md)**------- 数据学习基础操作总结([Mac安装连接MySQL(从零开始)](https://blog.csdn.net/lrglgy/article/details/90302029)     [Mac安装并使用R](https://blog.csdn.net/lrglgy/article/details/90297731))  
+<br>**[Operation](Operation.md)**------- 数据学习基础操作总结([Mac安装连接MySQL(从零开始)](https://blog.csdn.net/lrglgy/article/details/90302029)     [Mac安装并使用R](https://blog.csdn.net/lrglgy/article/details/90297731))
 <br>**[BookReport](BookReport.md)**---- 读书笔记
 
 ## 入门参考
