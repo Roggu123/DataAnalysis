@@ -242,9 +242,10 @@ Table of Contents
   
 
 ### <div id="115-参考">1.1.5 参考</div>  
-1. [mac 安装mysql详细教程](https://www.jianshu.com/p/07a9826898c0) 
-2. [第 28 天：安裝/使用 DBeaver 管理資料庫](https://ithelp.ithome.com.tw/articles/10196383)
-**DBeaver创建MySQL数据库**
+[1] 展菲.[mac 安装mysql详细教程](https://www.jianshu.com/p/07a9826898c0)  
+[2] 范聖佑.[第 28 天：安裝/使用 DBeaver 管理資料庫](https://ithelp.ithome.com.tw/articles/10196383)
+  
+**DBeaver创建MySQL数据库**  
 [1] Ben Forta.[SQL必知必会-中文-第4版](https://github.com/Roggu123/DataAnalysis/blob/master/References/SQL必知必会-中文-第4版..pdf)  
 [2] Jiezi.[连接 MYSQL 8.X 版本报错解决](https://lequ7.com/2019/04/08/richang/lian-jie-MySQL-8x-ban-ben-bao-cuo-jie-jue/)  
 [3] serge-rider.[Timezone and MySQL Connector](https://github.com/dbeaver/dbeaver/issues/3599)  
