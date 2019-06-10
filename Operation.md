@@ -235,12 +235,110 @@ Table of Contents
  NULL值：自动忽略。
 
 6. 聚集不同值  
-  1. 当指定 ALL 或不指定时，包含所有行。
+  + 当指定 ALL 或不指定时，包含所有行。
   2. 当指定 DISTINCT 时，只包含不同的值。  
 
 + **<div id="组合数据">数据分组</div>**  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;聚集函数是在表的所有数据或匹配where子句的数据上进行计算，当要将数据划分为若干组且对每个组分别进行聚集函数计算时，仅有聚集函数是不够的，还要进行分组。  
+ 
+1. 创建分组`GROUP BY`
+  	
+  	```
+   SELECT vend_id, prod_price, COUNT(*) AS num_prods
+   FROM Products
+   GROUP BY vend_id, prod_price;
+   ```
+   **注意**：
+       
+    + GROUP BY子句可以包含任意数目的列，因而可以进行嵌套分组，具体方式见上面的例子；
+    + GROUP BY子句中的列必须是检索列或有效的表达式（但不能是聚集函数）；
+    + SELECT语句中的每一列都必须在GROUP BY子句中出现；
+    + 大多数SQL不允许GROP BY列带有可变长度的数据类型（如文本或备注型字段）；
+    + NULL：会被当作一个单独的分组列出；
+    + GROUP BY一定在WHERE子句之后，ORDER BY子句之前；  
+2. 过滤分组`HAVING`  
+之前的WHERE子句只可以过滤行，要过滤分组时需要使用HAVING子句。
   
+  ```
+  SELECT cust_id, COUNT(*) AS orders
+  FROM Orders
+  GROUP BY cust_id
+  HAVING COUNT(*) >= 2;
+  ```
+  **注意**：
+       
+    + WHERE 在数据分组前进行过滤，HAVING 在数据分组后进行过滤；
+    + 所有类型的WHERE子句都可以用HAVING子句来代替（HAVING支持所有的WHERE操作符）；
 
++ **使用子查询**  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT语句只可以查询单个数据表，但有时需根据若干数据表查询数据，此时可以创建子查询（subquery）进行查询。
+ 1. 使用子查询过滤  
+ *例子*：  
+ 需要列出订购物品 RGAN01 的所有顾客？  
+ *解答*：  
+ (1) 检索包含物品 RGAN01 的所有订单的编号。  
+ (2) 检索具有前一步骤列出的订单编号的所有顾客的 ID。  
+ (3) 检索前一步骤返回的所有顾客 ID 的顾客信息。  
+ 上诉操作需检索三张表，分别为 OrderItems, Orders和 Customers。  
+ *硬查询*：  
+ 先执行步骤（1）
+    
+     ```
+     SELECT order_num
+     FROM OrderItems
+     WHERE prod_id = 'RGAN01';
+     ``` 
+ 再执行步骤（2）：  
+ 
+     ```
+     SELECT cust_id
+     FROM Orders
+     WHERE order_num IN (20007,20008); 
+     ```
+ 第（3）步与前两步类似，不再赘述。  
+ *子查询*：  
+ 把一条 SELECT 语句返回的结果嵌套入另一条SELECT 语句中的 WHERE 子句。
+ 
+      ```
+      SELECT cust_name, cust_contact
+      FROM Customers
+      WHERE cust_id IN(SELECT cust_id
+                       FROM Orders
+                       WHERE order_num IN(SELECT order_num
+                                          FROM OrderItems
+                                          WHERE prod_id = 'RGAN01'));
+     ```
+     
+      **注意**
+  
+   + 作为子查询的 SELECT 语句只能查询单个列。企图检索多个列将返回 错误；
+   + 使用子查询并不总是执行上诉数据检索的最有效方法；  
+ 
+ 2. 作为计算字段使用子查询  
+ *例子*：  
+ 显示 Customers 表中 每个顾客的订单总数  
+ *解答*：  
+ (1) 从 Customers 表中检索顾客列表；  
+ (2) 对于检索出的每个顾客，统计其在 Orders 表中的订单数目；  
+ 上诉操作需检索两张表，分别为 Orders 和 Customers。  
+    
+     ```
+     SELECT cust_name,
+            cust_state,
+           (SELECT COUNT(*)
+            FROM Orders
+            WHERE Orders.cust_id = Customers.cust_id) AS orders
+     FROM Customers
+     ORDER BY cust_name;
+     ``` 
+  **注意**  
+    
+  + 子查询中的 WHERE 子句使用了完全限定列名，指定表名和列名 (Orders.cust_id 和  Customers.cust_id），而不只是列名。
+  + 完全限定列名可以避免歧义，在 SELECT 语句中操作多个表就应使用完全限定列名来避免歧义。  
+  
++ **联结表**  
+  
+ 
 ### <div id="115-参考">1.1.5 参考</div>  
 [1] 展菲.[mac 安装mysql详细教程](https://www.jianshu.com/p/07a9826898c0)  
 [2] 范聖佑.[第 28 天：安裝/使用 DBeaver 管理資料庫](https://ithelp.ithome.com.tw/articles/10196383)
