@@ -481,12 +481,12 @@ comment.char = "#")`
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;直接在界面选择`file -> save as`就可以将代码保存为txt格式，方便详细查看代码，但不会保存之前产生的变量数据，也无法用R打开。
   
 ### <div id="124-参考">1.2.4 参考</div>  
-1. [R（1）Mac OS 下安装R语言开发环境](https://blog.csdn.net/freewebsys/article/details/45825267)  
-2. [R语言的各种报错及其解决方法](https://blog.csdn.net/Bone_ACE/article/details/47324233)  
-3. [小白入门R语言时遇到的问题](https://zhuanlan.zhihu.com/p/26352990)  
-4. [R语言hist绘图函数](https://www.cnblogs.com/xudongliang/p/6913363.html)   
-**read.csv用法解析** 
-5. [R语言——read.table;read.csv（读取外部数据）](https://blog.csdn.net/AnneQiQi/article/details/51085675)  
+[1] freewebsys.[R（1）Mac OS 下安装R语言开发环境](https://blog.csdn.net/freewebsys/article/details/45825267)  
+[2] 九茶.[R语言的各种报错及其解决方法](https://blog.csdn.net/Bone_ACE/article/details/47324233)  
+[3] 方宁.[小白入门R语言时遇到的问题](https://zhuanlan.zhihu.com/p/26352990)  
+[4] 庐州月光.[R语言hist绘图函数](https://www.cnblogs.com/xudongliang/p/6913363.html)   
+**read.csv用法解析**   
+[5] AnneQiQi.[R语言——read.table;read.csv（读取外部数据）](https://blog.csdn.net/AnneQiQi/article/details/51085675)  
 **线图**  
 [6] 优雅的代码.[在回归方程中可以添加趋势线](http://www.sohu.com/a/252882522_100261403)  
 **R的保存**  
