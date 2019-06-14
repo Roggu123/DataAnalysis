@@ -340,7 +340,79 @@ Table of Contents
    + 完全限定列名可以避免歧义，在 SELECT 语句中操作多个表就应使用完全限定列名来避免歧义。  
   
 + **<div id="联结表">联结表</div>**  
+ 1. 联结  
+用于在一条SELECT语句中关联多个表的机制。它并不是物理实体，DBMS会根据需要建立联结。
   
+ 2. 创建联结  
+ 指定要联结的表以及它们的联结方式即可。
+    
+     ```
+     SELECT vend_name, prod_name, prod_price
+     FROM Vendors, Products
+     WHERE Vendors.vend_id = Products.vend_id;
+     ```  
+ *叉联结*  
+ 如果没有 WHERE 子句，结果为两个表的笛卡尔积（叉联结），即结果的行数是被 查询表的行数的乘积。  
+ *内联结*  
+ 之前的联结都可称为等值联结，它基于两个表之间的相等测试，也称为内联结。可以 用不同的语法明确指定联结类型，之前的语句可改写如下：  
+     
+     ```
+     SELECT vend_name, prod_name, prod_price
+     FROM Vendors INNER JOIN Products
+     ON Vendors.vend_id = Products.vend_id;
+     ```  
+  *联结多个表*  
+  同样指定要联结的表以及各表之间的联系，具体如下：  
+     
+     ```
+     SELECT prod_name, vend_name, prod_price, quantity 
+     FROM OrderItems, Products, Vendors
+     WHERE Products.vend_id = Vendors.vend_id
+     AND OrderItems.prod_id = Products.prod_id
+     AND order_num = 20007;
+     ```  
+  
+   **注意**：  
+    
+  + 不要联结不必要的表，联结表越多，性能下降越厉害。
+  
++ **<div id="高级联结">高级联结</div>**   
+  1. 使用表别名  
+  ``原始表名 AS 表别名``  
+  **注意**：  
+  Oracle 中没有AS，所以直接用 ``原始表名 表别名`` 的方式创建表别名。
+  
+  2. 使用不同类型的联结  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前使用的都是内联结或等值联结等简单联结。除此之外还有自联结，自然联结和外联结。  
+  **自联结**  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*自联结即为表自己和自己联结，一般比使用查询要快。*  
+   
+     ```
+     SELECT C1.cust_id, C1.cust_name, C1.cust_contact
+     FROM Customers AS C1, Customers AS C2
+     WHERE C1.cust_name=C2.cust_name
+     AND C2.cust_contact= "Jim Jones";
+     ```   
+  **自然联结**  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*使用明确子集表示表的某一列，保证它只在结果中出现一次。迄今为止建立的每个内联结都是自然联结，很可能永远都不会用到不是自然联结的内联结。*  
+  **外联结**  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*之前的联结中，一个表中的行必定与另一个表中的一行相关联对应，但有时也需要包含没有关联行的行，此时需要使用外联结。*  
+     
+     ```
+     SELECT Customers.cust_id, Orders.order_num
+     FROM Customers LEFT OUTER JOIN Orders
+     ON Customers.cust_id = Orders.cust_id;
+     ```  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;外联结使用关键字 OUTER JOIN 实现包含无关联行的行。使用 `OUTER JOIN` 语法时，必须使用 `RIGHT` 或 `LEFT` 关键字指定包括其所有行的表(`RIGHT` 指出的是 `OUTER JOIN` 右边的表，而 `LEFT` 指出的是 `OUTER JOIN` 左边的表)。此外还有一种全外联结（`FULL OUTER JOIN`），它检索两个表中 的所有行并关联那些可以关联的行（但Access、MariaDB、MySQL、Open Office Base 和 SQLite 不支持该外联结语法）。  
+  **使用带聚集函数的联结**  
+     
+     ```
+     SELECT Customers.cust_id, 
+            COUNT(Orders.order_num) AS num_ord
+     FROM Customers INNER JOIN Orders
+     ON Customers.cust_id = Orders.cust_id
+     GROUP BY Customers.cust_id;
+     ```    
  
 ### <div id="115-参考">1.1.5 参考</div>  
 [1] 展菲.[mac 安装mysql详细教程](https://www.jianshu.com/p/07a9826898c0)  
