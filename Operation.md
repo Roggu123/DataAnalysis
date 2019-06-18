@@ -13,6 +13,7 @@ Table of Contents
             * [数据分组](#数据分组)  
             * [使用子查询](#使用子查询)
             * [联结表](#联结表)  
+            * [组合查询](#组合查询)  
          * [1.1.5 参考](#115-参考)
       * [1.2 Mac安装并使用R](#12-mac安装并使用r)
          * [1.2.1 前言](#121-前言)
@@ -437,20 +438,20 @@ Table of Contents
     WHERE cust_state IN ('IL','IN','MI')
     OR cust_name = 'Fun4All';
     ```  
-    
+  
   **UNION规则**  
     
    1. UNION必须包含两个或两个以上的SELECT语句，且用UNION分隔；
    2. UNION中每个查询的列名，表达式，聚集函数必须相同，但列名出现顺序可以不同（亲自实践发现在MySQL中列名不同也不会报错，但组合不同的列名显然无意义，具体例子见[操作多个表]()）；
    3. UNION中列数据类型必须兼容，列数据类型不一定完全相同，但必须是DBMS可以隐含转换的类型。  
-
- **保留或取消重复的行**  
+  
+  **保留或取消重复的行**  
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNION默认为取消重复的行，如果要保留重复的行则将`UNION`改为`UNION ALL`。
-   
- **组合查询结果排序**  
+  
+  **组合查询结果排序**  
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNION查询中只允许使用一个`ORDER BY`子句，并且必须在最后一个SELECT语句之后。  
- 
- **<div id="操作多个表">操作多个表</div>**
+  
+  **<div id="操作多个表">操作多个表</div>**
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前的例子为对一个表查询多次，UNION连接多个表的查询如下：  
    
    ```
