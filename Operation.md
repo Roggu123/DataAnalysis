@@ -361,7 +361,7 @@ Table of Contents
      FROM Vendors INNER JOIN Products
      ON Vendors.vend_id = Products.vend_id;
      ```  
-  *联结多个表*  
+ *联结多个表*  
   同样指定要联结的表以及各表之间的联系，具体如下：  
      
      ```
@@ -403,7 +403,7 @@ Table of Contents
      FROM Customers LEFT OUTER JOIN Orders
      ON Customers.cust_id = Orders.cust_id;
      ```  
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;外联结使用关键字 OUTER JOIN 实现包含无关联行的行。使用 `OUTER JOIN` 语法时，必须使用 `RIGHT` 或 `LEFT` 关键字指定包括其所有行的表(`RIGHT` 指出的是 `OUTER JOIN` 右边的表，而 `LEFT` 指出的是 `OUTER JOIN` 左边的表)。此外还有一种全外联结（`FULL OUTER JOIN`），它检索两个表中 的所有行并关联那些可以关联的行（但Access、MariaDB、MySQL、Open Office Base 和 SQLite 不支持该外联结语法）。  
+  外联结使用关键字 OUTER JOIN 实现包含无关联行的行。使用 `OUTER JOIN` 语法时，必须使用 `RIGHT` 或 `LEFT` 关键字指定包括其所有行的表(`RIGHT` 指出的是 `OUTER JOIN` 右边的表，而 `LEFT` 指出的是 `OUTER JOIN` 左边的表)。此外还有一种全外联结（`FULL OUTER JOIN`），它检索两个表中 的所有行并关联那些可以关联的行（但Access、MariaDB、MySQL、Open Office Base 和 SQLite 不支持该外联结语法）。  
   **使用带聚集函数的联结**  
      
      ```
@@ -414,6 +414,67 @@ Table of Contents
      GROUP BY Customers.cust_id;
      ```    
  
++ **<div id="组合查询">组合查询</div>**  
+  **组合查询**  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;进行组合查询有两种情况，第一种为对一个表进行多个查询，然后按一个查询返回结果；第二种为一个查询中从多个表返回结果。
+  
+  **创建组合查询**  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以通过两种方式创建组合查询，第一种使用多个WHERE子句；第二种为使用关键字UNION连接两个查询。具体见如下代码：  
+  
+    ```  
+    问题：需要 Illinois、Indiana 和 Michigan 等美国几个州的所有顾 客的报表，还想包括不管位于哪个州的所有的 Fun4All。  
+    解答：
+    SELECT cust_name, cust_contact, cust_email
+    FROM Customers
+    WHERE cust_state IN ('IL','IN','MI')
+    UNION
+    SELECT cust_name, cust_contact, cust_email
+    FROM Customers
+    WHERE cust_name = 'Fun4All';
+    或
+    SELECT cust_name, cust_contact, cust_email
+    FROM Customers
+    WHERE cust_state IN ('IL','IN','MI')
+    OR cust_name = 'Fun4All';
+    ```  
+    
+  **UNION规则**  
+    
+   1. UNION必须包含两个或两个以上的SELECT语句，且用UNION分隔；
+   2. UNION中每个查询的列名，表达式，聚集函数必须相同，但列名出现顺序可以不同（亲自实践发现在MySQL中列名不同也不会报错，但组合不同的列名显然无意义，具体例子见[操作多个表]()）；
+   3. UNION中列数据类型必须兼容，列数据类型不一定完全相同，但必须是DBMS可以隐含转换的类型。  
+
+ **保留或取消重复的行**  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNION默认为取消重复的行，如果要保留重复的行则将`UNION`改为`UNION ALL`。
+   
+ **组合查询结果排序**  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNION查询中只允许使用一个`ORDER BY`子句，并且必须在最后一个SELECT语句之后。  
+ 
+ **<div id="操作多个表">操作多个表</div>**
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前的例子为对一个表查询多次，UNION连接多个表的查询如下：  
+   
+   ```
+   SELECT cust_name, cust_contact, cust_email
+   FROM Customers
+   WHERE cust_state IN ('IL','IN','MI')
+   UNION
+   SELECT order_num, order_item, prod_id
+   FROM OrderItems
+   WHERE prod_id = 'RGAN01';  
+   cust_name    |cust_contact|cust_email
+   结果为  
+   cust_name    |cust_contact|cust_email           |
+   -------------|------------|---------------------|
+   Village Toys |John Smith  |sales@villagetoys.com|
+   Fun4All      |Jim Jones   |jjones@fun4all.com   |
+   The Toy Store|Kim Howard  |                     |
+   20007        |5           |RGAN01               |
+   20008        |1           |RGAN01               | 
+   ```
+   
+   两个表查询的列名并不相同，但也会强制将两个查询的结果组合在一起，但没什么意义。
+   
+     
 ### <div id="115-参考">1.1.5 参考</div>  
 [1] 展菲.[mac 安装mysql详细教程](https://www.jianshu.com/p/07a9826898c0)  
 [2] 范聖佑.[第 28 天：安裝/使用 DBeaver 管理資料庫](https://ithelp.ithome.com.tw/articles/10196383)
