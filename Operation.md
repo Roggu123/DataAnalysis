@@ -13,7 +13,9 @@ Table of Contents
             * [数据分组](#数据分组)  
             * [使用子查询](#使用子查询)
             * [联结表](#联结表)  
-            * [组合查询](#组合查询)  
+            * [组合查询](#组合查询)
+            * [插入数据](#插入数据)  
+            * [删除数据](#删除数据)  
          * [1.1.5 参考](#115-参考)
       * [1.2 Mac安装并使用R](#12-mac安装并使用r)
          * [1.2.1 前言](#121-前言)
@@ -473,8 +475,107 @@ Table of Contents
    20008        |1           |RGAN01               | 
    ```
    
-   两个表查询的列名并不相同，但也会强制将两个查询的结果组合在一起，但没什么意义。
+   两个表查询的列名并不相同，但也会强制将两个查询的结果组合在一起，但没什么意义。  
+
++ **<div id="插入数据">插入数据</div>**  
+  **插入整行数据**
+     
+  ```
+  INSERT INTO Customers
+  VALUES('1000000006',
+           'Toy Land',
+           '123 Any Street',
+           'New York',
+           'NY',
+           '11111',
+           'USA',
+            NULL,
+            NULL);   
+  ```  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于无法保证表结构改变后，各列次序依然保持不变，所以上述方式并不安全，采取以下方式虽然麻烦但更加安全：  
+  
+  ```
+  INSERT INTO Customers(cust_id,
+                          cust_name,
+                          cust_address,
+                          cust_city,
+                          cust_state,
+                          cust_zip,
+                          cust_country,
+                          cust_contact,
+                          cust_email)
+  VALUES('1000000006',
+           'Toy Land',
+           '123 Any Street',           
+           'New York',
+           'NY',
+           '11111',
+           'USA',
+            NULL,
+            NULL);
+  ```  
+  **插入行的一部分**  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;插入行的一部分和插入完整行的用法其实差不多，只不过在插入行一部分时未插入值的列名不会写出。  
+    
+    ```
+    INSERT INTO Customers(cust_id,
+                          cust_name,
+                          cust_address,
+                          cust_city,
+                          cust_state,
+                          cust_zip,
+                          cust_country)  
+    VALUES('1000000008',
+           'CF Land',
+           '321 Tic Avenue',
+           'Shanghai',
+           'SH',
+           '18484',
+           'CCP');
+    ```
    
+   注意：  
+   1. 省略列时列定义要允许NULL值（空值或无值）
+   2. 表定义有默认值，表示若不给处值时将使用默认值。  
+   
+   **插入查询结果**  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果希望将另一个表中的顾客列插入Customer表中就需要使用 INSERT SELECT 语句，即一条 INSERT 语句再加一条 SELECT 语句。  
+   
+   ```
+   INSERT INTO Customers(cust_id,
+                          cust_name,
+                          cust_address,
+                          cust_city,
+                          cust_state,
+                          cust_zip,
+                          cust_country)
+   SELECT cust_id,
+           cust_call,
+           cust_place,
+           cust_town,
+           cust_province,
+           cust_code,
+           cust_nation
+   FROM CustNew;
+   ```  
+   **从一个表复制到另一个表**  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有一种数据插入不使用 INSERT，即将一个表的内容复制到另一个全新的表中，此时使用 SELECT INTO 语句。不同 DBMS 对 SELECT INTO 的支持度也不同，DB2不支持 SELECT INTO，SQL Server 使用 SELECT INTO 的语法为：  
+   
+   ```
+   SELECT *
+   INTO CustCopy
+   FROM Customers;
+   ```  
+   而 MariaDB、MySQL、Oracle、PostgreSQL和SQLite 使用的语法如下：  
+   
+   ```
+   CREATE TABLE CUstCopy AS
+   SELECT * FROM Customers;
+   ```  
+   
++ **<div id="删除数据">删除数据</div>**   
+
+
      
 ### <div id="115-参考">1.1.5 参考</div>  
 [1] 展菲.[mac 安装mysql详细教程](https://www.jianshu.com/p/07a9826898c0)  
