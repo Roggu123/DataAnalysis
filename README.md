@@ -37,6 +37,9 @@ This repository record My study of DataAnalysis including operation and concepti
 操作：  
 [SQL 教程](http://www.w3school.com.cn/sql/index.asp)  
 [Learn SQL](https://www.codecademy.com/zh/learn/learn-sql)  
+全面指导：  
+[MySQL 8.0 Reference Manual](https://dev.mysql.com/doc/refman/8.0/en/)  
+[MySQL参考手册中文版](https://juejin.im/entry/59bd3e2ef265da064c384c9a)  
 个人总结：  
 [基本概念](Concept.md)  
 [基本操作](Operation.md)
