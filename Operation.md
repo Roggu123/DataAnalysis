@@ -15,7 +15,12 @@ Table of Contents
             * [联结表](#联结表)  
             * [组合查询](#组合查询)
             * [插入数据](#插入数据)  
-            * [删除数据](#删除数据)  
+            * [删除更新数据](#删除数据)  
+            * [创建和操纵表](#创建和操纵表)  
+            * [使用视图](#使用视图)  
+            * [使用存储过程](#使用存储过程)
+
+              
          * [1.1.5 参考](#115-参考)
       * [1.2 Mac安装并使用R](#12-mac安装并使用r)
          * [1.2.1 前言](#121-前言)
@@ -573,9 +578,231 @@ Table of Contents
    SELECT * FROM Customers;
    ```  
    
-+ **<div id="删除数据">删除数据</div>**   
++ **<div id="删除数据">删除更新数据</div>**
+  **更新数据**  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用UPDATE语句更新表中数据。基本的UPDATE语句由如下三部分组成：  
+  + 要更新的表
+  + 列名和新值
+  + 要更新行的过滤条件  
+  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更新特定行，用 WHERE 指定行：  
+    
+    ```
+    UPDATE Customers
+    SET cust_email = 'kim@thetoystore.com'
+    WHERE cust_id = '1000000005';  #如果没有 WHERE 则默认更新所有行
+    ```  
+    
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更新多个列，SET 子句中添加多个"列=值"对，并用逗号分隔：  
+   
+   ```
+   UPDATE Customers
+   SET cust_email = 'sam@toyland.com',
+       cust_contact = 'Sam Roberts'
+   WHERE cust_id = '1000000006';
+   ```  
+   
+   **删除数据**  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 DELETE 语句即可，DELETE 语句由如下两部分组成；  
+   
+   + DELETE FROM 指定要删除的表
+   + WHERE 指定要删除的特定行（如果没有 WHERE 则会删除整个表的数据，但不会删除表）  
+   
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除顾客ID为1000000006的那一行：
+   
+   ```
+   DELETE FROM Customers
+   WHERE cust_id = '1000000006';
+   ```  
+   
+   **更新和删除的指导原则**  
+   
+   + 除非确实打算更新和删除每一行，否则绝对不要使用不带 WHERE 子句 的 UPDATE 或 DELETE 语句。
+   + 保证每个表都有主键(如果忘记这个内容，请参阅第 12 课)，尽可能 像 WHERE 子句那样使用它(可以指定各主键、多个值或值的范围)。
+   + 在 UPDATE 或 DELETE 语句使用 WHERE 子句前，应该先用 SELECT 进 行测试，保证它过滤的是正确的记录，以防编写的 WHERE 子句不正确。
+   + 使用强制实施引用完整性的数据库(关于这个内容，请参阅第 12 课)，这样 DBMS 将不允许删除其数据与其他表相关联的行。
+   + 有的 DBMS 允许数据库管理员施加约束，防止执行不带 WHERE 子句 的 UPDATE 或 DELETE 语句。如果所采用的 DBMS 支持这个特性，应该使用它。  
 
++ **<div id="创建和操纵表">创建和操纵表</div>**  
+   **创建表**  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建表有两种方法，第一种是通过DBMS工具创建，第二种是通过SQL语句创建。  
+    1. 创建基础表  
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用CREATE TABLE语句创建表，其中包含如下三个要素：  
+     + 表名，在CREATE TABLE语句之后；
+     + 列名及其定义，用逗号分隔；
+     + 有的DBMS还要求指定表的位置；  
+    
+     ```
+     CREATE TABLE MyFirstTable
+     (my_id  char(10)  NOT NULL,
+     my_name  char(10) NOT NULL,
+     my_age char(10) NOT NULL,
+     my_note char(10) NOT NULL
+     );
+     ```  
+   2. 使用NULL  
+     + 在不指定NOT NUUL时，多数DBMS默认指定的是NULL,但有的DBMS要求指定NULL，否则报错；
+     + 只有NOT NULL的列允许指定为主键；
+     + NULL与空字符串不同，空字符串是一个有效的值，而NULL是无值；  
+   
+   3. 使用默认值  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在CREATE TABLE语句的列定义中用关键字DEFAULT指定默认值，默认值一般用于时间日期列，而不同DBMS获取系统日期的命令往往不同，下表列出了不同DBMS的用法：  
+   
+   |DBMS          |函数           |   
+   |:---------:   |:-----:        |    
+   |MySQL         |CURRENT_DATE() |  
+   |SQL Server    |GETDATE()      |
+   |Oracle        |SYSDATE        |
+   |Acess         |NOW            |
+   |DB2           |CURRENT_DATE() |
+   |PostgreSQL    |CURRENT_DATE() |
+   |SQLite        |date('now')    |
+   
+   ```
+   CREATE TABLE MyFirstTable
+     (my_id  char(10)  NOT NULL,
+     my_name  char(10) NOT NULL,
+     my_date char(10) DEFAULT CURRENT_DATE,
+     my_note char(10) NOT NULL
+     );
 
+   ```  
+   
+  **更新表**  
+   
+   1. 注意事项：  
+     
+     + 理想情况下，不要在表中包含数据时对其进行更新。应该在表的设 计过程中充分考虑未来可能的需求，避免今后对表的结构做大 改动。
+     + 所有的 DBMS 都允许给现有的表增加列，不过对所增加列的数据类型 (以及 NULL 和 DEFAULT 的使用)有所限制。
+     + 许多 DBMS 不允许删除或更改表中的列。
+     + 多数 DBMS 允许重新命名表中的列。
+     + 许多 DBMS 限制对已经填有数据的列进行更改，对未填有数据的列几乎没有限制。  
+   
+   2. 语法：  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更新表的语法与创建表的语法比较相似：  
+     + 表名，在ALTER TABLE语句之后；  
+     + 说明列要做出哪些修改。  
+     
+     ```
+     # 添加列
+     ALTER TABLE Vendors
+     ADD vend_phone CHAR(20);
+     # 删除列
+     ALTER TABLE Vendors
+     DROP COLUMN vend_phone;
+     ```  
+     
+   3. 复杂更新：  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;复杂的表结构更新，一般需要手动删除过程，具体如下：  
+   (1) 用新的列布局创建一个新表;  
+   (2) 使用 INSERT SELECT 语句(关于这条语句的详细介绍，请参阅第 15课)从旧表复制数据到新表。有必要的话，可以使用转换函数和计算字段;  
+   (3) 检验包含所需数据的新表;  
+   (4) 重命名旧表(如果确定，可以删除它);  
+   (5) 用旧表原来的名字重命名新表;  
+   (6) 根据需要，重新创建触发器、存储过程、索引和外键。  
+  
+  **删除表**  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 DROP TABLE 语句就可以直接删除表（整个表而不是其内容）：```DROP TABLE MySecondTable;```  
+  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注意事项：  
+  
+   + 删除表没有确认，也不能撤销，执行这条语句将永久删除该表；
+   + 许多DBMS不允许删除于其它表相关联的表；  
+   
+  **重命名表**  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重命名操作不存在严格标准：  
+  
+  + DB2、MariaDB、MySQL、Oracle 和 PostgreSQL 用户使用 RENAME 语句；
+  + SQL Server 用户使用 sp_rename 存储过程；
+  + SQLite 用户使用 ALTER TABLE 语句。  
+  具体语法可参见相应的DBMS文档。  
+  
++ **<div id="使用视图">使用视图</div>**  
+  **视图**  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;视图是虚拟的表，只包含使用时动态检索数据的查询，与包含数据的表不同。并且需要注意Access无法使用视图，SQLite仅支持可读视图。  
+  1. 为什么使用视图  
+    
+     + 简化复杂的 SQL 操作。在编写查询后，可以方便地重用它而不必知道 其基本查询细节；
+     + 使用表的一部分而不是整个表；
+     + 保护数据。可以授予用户访问表的特定部分的权限，而不是整个表的访问权限；
+     + 更改数据格式和表示。视图可返回与底层表的表示和格式不同的数据。    
+ 
+  2. 视图的规则和限制  
+     
+     + 与表一样，视图必须唯一命名(不能给视图取与别的视图或表相同的 名字)；  
+     + 对于可以创建的视图数目没有限制；  
+     + 创建视图，必须具有足够的访问权限。这些权限通常由数据库管理人员授予。  
+     + 视图可以嵌套，即可以利用从其他视图中检索数据的查询来构造视图。所允许的嵌套层数在不同的 DBMS 中有所不同(嵌套视图可能会 严重降低查询的性能，因此在产品环境中使用之前，应该对其进行全 面测试)；  
+     + 许多DBMS禁止在视图查询中使用ORDER BY子句；  
+     + 有些 DBMS 要求对返回的所有列进行命名，如果列是计算字段，则需要使用别名(关于列别名的更多信息，请参阅第 7 课)。  
+     + 视图不能索引，也不能有关联的触发器或默认值。  
+     + 有些 DBMS 把视图作为只读的查询，这表示可以从视图检索数据，但不能将数据写回底层表。详情请参阅具体的 DBMS 文档。  
+     + 有些 DBMS 允许创建这样的视图，它不能进行导致行不再属于视图的 插入或更新。例如有一个视图，只检索带有电子邮件地址的顾客。如果 更新某个顾客，删除他的电子邮件地址，将使该顾客不再属于视图。这是默认行为，而且是允许的，但有的 DBMS 可能会防止这种情况发生。  
+       
+  **创建视图**  
+  
+  1. 利用视图简化复杂联结  
+     创建视图  
+     
+     ```
+     CREATE VIEW ProductCustomers AS
+     SELECT cust_name, cust_contact, prod_id
+     FROM Customers, Orders, OrderItems
+     WHERE Customers.cust_id = Orders.cust_id
+     AND OrderItems.order_num = Orders.order_num;
+     ```  
+     使用视图  
+     
+     ```
+     SELECT cust_name, cust_contact
+     FROM ProductCustomers
+     WHERE prod_id = 'RGAN01';
+     ```
+     
+  2. 用视图重新格式化检索出的数据
+    
+     ```
+     CREATE VIEW VendorLocations AS
+     SELECT Concat(vend_name, ' (', vend_country, ')')
+            AS ven_title
+     FROM Vendors;
+     ```  
+     ```
+     SELECT *
+     FROM VendorLocations;  
+     ```
+  
+  3. 用视图过滤不想要的数据  
+
+     ```
+     CREATE VIEW CustomerEMailList AS
+     SELECT cust_id, cust_name, cust_email
+     FROM Customers
+     WHERE cust_email IS NOT NULL;
+     ```
+     ```
+     SELECT *
+     FROM CustomerEMailList;  
+     ```
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从视图检索数据时如果使用了一条 WHERE 子句，则两组子句(一组在 视图中，另一组是传递给视图的)将自动组合。
+  4. 使用视图与计算字段  
+
+     ```
+     CREATE VIEW OrderItemsExpanded AS
+     SELECT order_num,
+            prod_id,
+            quantity,
+            item_price,
+            quantity*item_price AS expanded_price
+     FROM OrderItems;
+     ```  
+     ```
+     SELECT *
+     FROM OrderItemsExpanded
+     WHERE order_num = 20008;
+     ```  
+     
++ **<div id="使用存储过程">使用存储过程</div>**     
      
 ### <div id="115-参考">1.1.5 参考</div>  
 [1] 展菲.[mac 安装mysql详细教程](https://www.jianshu.com/p/07a9826898c0)  
