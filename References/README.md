@@ -13,7 +13,9 @@
 <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;*学习SQL非常好的书籍，由浅入深，有理论有实践*  
 <big>**5. [SQL学习指南(第2版)](2、SQL学习指南(第2版)@www.java1234.com.pdf)**</big>  
 <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;*还没有看*  
-<big>**6. [TeachYourselfSQL_MySQL](TeachYourselfSQL_MySQL)**</big>  
+<big>**6. [MySQL参考手册](MySQL_8.0_Reference_Manual.pdf)**</big>  
+<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;*MySQL官方参考文档，非常权威，条理清晰*  
+<big>**7. [TeachYourselfSQL_MySQL](TeachYourselfSQL_MySQL)**</big>  
 <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;*《SQL必知必会》中的相关学习资源，代码，数据实例等*  
-<big>**7. [R\_frequently\_asked_questions](R_frequently_asked_questions.pdf)**</big>  
+<big>**8. [R\_frequently\_asked_questions](R_frequently_asked_questions.pdf)**</big>  
 <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;*R中常见问题解答，有一定用处*         
