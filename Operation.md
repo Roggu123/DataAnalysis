@@ -31,7 +31,8 @@ Table of Contents
             * [整理数据](#整理数据)
             * [导入数据](#导入数据)  
             * [导出文件](#导出文件) 
-         * [1.2.4 参考](#124-参考)
+         * [1.2.4 参考](#124-参考)  
+      
 
 # <center>Operation</center>
 学习数据分析当中一些操作的总结分析
@@ -151,6 +152,7 @@ Table of Contents
     <img src="Pictures/31orderitem.png" width="600" height="320">
 </center>  
 <center>图4-3.表格OrderItems</center>
+MySQL中的基本操作主要为选择，插入，删除和更新四种，对应代码为`SELECT`，`INSERT`，`DELETE`和`UPDATE`。
 
 + **<div id="检索数据排序">检索数据排序</div>**  
   
@@ -802,7 +804,14 @@ Table of Contents
      WHERE order_num = 20008;
      ```  
      
-+ **<div id="使用存储过程">使用存储过程</div>**     
++ **<div id="使用存储过程">使用存储过程</div>**  
+问题解决思路（结合参考手册）： 
+
+1. 尝试终端创建存储过程；  
+[1] GarveyCalvin.[MySQL之终端(Terminal)管理MySQL](https://www.cnblogs.com/GarveyCalvin/p/4297221.html)  
+[2] 风亡小窝.[mysql存储过程详细教程](https://www.jianshu.com/p/7b2d74701ccd)
+2. 直接谷歌搜索报错语句；
+3. 搜索DBeaver创建MySQL存储过程报错；      
      
 ### <div id="115-参考">1.1.5 参考</div>  
 [1] 展菲.[mac 安装mysql详细教程](https://www.jianshu.com/p/07a9826898c0)  
@@ -812,7 +821,10 @@ Table of Contents
 [1] Ben Forta.[SQL必知必会-中文-第4版](https://github.com/Roggu123/DataAnalysis/blob/master/References/SQL必知必会-中文-第4版..pdf)  
 [2] Jiezi.[连接 MYSQL 8.X 版本报错解决](https://lequ7.com/2019/04/08/richang/lian-jie-MySQL-8x-ban-ben-bao-cuo-jie-jue/)  
 [3] serge-rider.[Timezone and MySQL Connector](https://github.com/dbeaver/dbeaver/issues/3599)  
-[4] zyz511919766.[MySQL 中 localhost 与 127.0.0.1 的区别](https://blog.csdn.net/zyz511919766/article/details/21384791) 
+[4] zyz511919766.[MySQL 中 localhost 与 127.0.0.1 的区别](https://blog.csdn.net/zyz511919766/article/details/21384791)   
+
+**MySQL使用**  
+[1] .[MySQL 8.0参考手册](https://dev.mysql.com/doc/refman/8.0/en/) 
   
   
 ## <div id="12-Mac安装并使用R">1.2 Mac安装并使用R</div>
@@ -952,7 +964,7 @@ comment.char = "#")`
 **线图**  
 [6] 优雅的代码.[在回归方程中可以添加趋势线](http://www.sohu.com/a/252882522_100261403)  
 **R的保存**  
-[7] 孙洪双.[R学习笔记（一） 变量的保存与加载](https://zhuanlan.zhihu.com/p/29743511)
+[7] 孙洪双.[R学习笔记（一） 变量的保存与加载](https://zhuanlan.zhihu.com/p/29743511)  
 
   
  
