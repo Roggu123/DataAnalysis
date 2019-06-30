@@ -5,8 +5,9 @@ Table of Contents
       * [1.1 Mac安装使用Mysql教程(从零开始)](#11-mac安装使用mysql教程从零开始)
          * [1.1.1 安装MySQL](#111-安装MySQL)  
          * [1.1.2 安装数据库管理软件DBeaver](#112-安装数据库管理软件DBeaver)  
-         * [1.1.3 DBeaver创建MySQL数据库](#113-DBeaver创建MySQL数据库)
-         * [1.1.4 MySQL基本操作总结](#114-MySQL基本操作总结)  
+         * [1.1.3 DBeaver创建MySQL数据库](#113-DBeaver创建MySQL数据库)  
+         * [1.1.4 终端管理MySQL](#114-终端管理MySQL)
+         * [1.1.5 MySQL基本操作总结](#115-MySQL基本操作总结)  
             * [检索数据排序](#检索数据排序)
             * [数据过滤](#数据过滤)  
             * [汇总数据](#汇总数据)  
@@ -20,8 +21,8 @@ Table of Contents
             * [使用视图](#使用视图)  
             * [使用存储过程](#使用存储过程)
 
-              
-         * [1.1.5 参考](#115-参考)
+         * [1.1.6 问题及解决记录](#116-问题及解决记录)     
+         * [1.1.7 参考](#117-参考)
       * [1.2 Mac安装并使用R](#12-mac安装并使用r)
          * [1.2.1 前言](#121-前言)
          * [1.2.2 安装](#122-安装)
@@ -129,7 +130,163 @@ Table of Contents
 ![Alt text](Pictures/timezone.png) 
     <center>图3-5.timezone属性</center>
     
-### <div id="114-MySQL基本操作总结">1.1.4 MySQL基本操作总结</div>
+### <div id="114-终端管理MySQL">1.1.4 终端管理MySQL</div>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一些权限较高的操作如创建存储过程在数据库管理软件如DBeaver中可能较难执行，需要在终端环境下执行，并且有些数据库需在服务器上操作，所以学习终端管理MySQL还是很有必要的。以下命令均在Mac终端下测试完成的。
+**MySQL服务**  
+
+1. 启动MySQL服务  
+ 
+  ```
+  $ sudo /Library/StartupItems/MySQLCOM/MySQLCOM start
+  ```  
+
+2. 停止MySQL服务  
+  
+  ```
+  $ sudo /Library/StartupItems/MySQLCOM/MySQLCOM stop
+  ```  
+  
+3. 重启MySQL服务  
+  
+  ```
+  $ sudo /Library/StartupItems/MySQLCOM/MySQLCOM restart
+  Restarting MySQL database server
+  ```  
+
+4. 除了终端外，还可以在系统偏好设置中设置MySQL的关闭与启动，详情见[第一章 Mac安装Mysql](https://blog.csdn.net/lrglgy/article/details/90549309)中图1-8。  
+5. 更改MySQL的root管理员密码  
+  
+  ```
+  $ /usr/local/mysql/bin/mysqladmin -u root -p password 123456
+  Enter password: 
+  Warning: Using a password on the command line interface can be insecure.
+  ```  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输入原密码后，密码更改为123456生效。  
+
+**终端登录MySQL**  
+
+1. 查看MySQL路径
+  
+  ```
+  $ echo $PATH
+  ```  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若未看到MySQL运行路径`/usr/local/mysql/bin`，则需进行第二步与第三步，添加检查MySQL路径。  
+
+2. 添加MySQL路径  
+  
+  ```
+  $ PATH="$PATH":/usr/local/mysql/bin 
+  ```  
+ 
+3. 检查是否添加成功  
+  
+  ```
+  $ which mysql
+  /usr/local/mysql/bin/mysql  #路径
+  ```  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出路径则成功。  
+
+4. 登录MySQL  
+  
+  ```SQL
+  $ mysql -u root -p
+  Enter password:
+  ```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每当关闭终端后，下次登录MySQL需要重新添加路径，较为麻烦。可以使用`alias`命令简化MySQL的终端登录操作。详情见下文。  
+  
+5. 使用MySQL运行路径登录  
+  
+  ```SQL
+  $ /usr/local/mysql/bin/mysql -u root -p
+  Enter password:
+  ```  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然步骤减少了，但命令还是有些繁琐，可以用`alias`命令进行简化。  
+  
+6. 用`alias`命令简化  
+  
+  ```
+  $ alias mysql=/usr/local/mysql/bin/mysql
+  ```  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用`alias`命令很简单，就是`alias <简化后的名字>=<'具体的指令>`。  
+
+7. 登录MySQL  
+  
+  ```
+  $ mysql -u root -p
+  Enter password: 
+  ```
+  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然命令简化了，但关闭终端后，已简化的命令就失效了，因此需要将简化命令定义为全局。可以在目录`~/.bash_profile`下添加指令定义全局变量。  
+
+8. 进入`$ ~/.bash_profile`文件  
+  
+  ```
+  $ vi ~/.bash_profile
+  ```  
+  
+9. 编辑添加指令  
+  
+  ```
+  # MySQL
+  alias mysql='/usr/local/mysql/bin/mysql';
+  ```  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;键盘输入i进入编辑模式，输入上述代码，然后按`ESC`键退出命令，再输入`:wq`保存修改并退出。  
+
+10. 使`~/.bash_profile`文件生效. 
+  
+  ```
+  $ source ~/.bash_profile
+  ```  
+
+11. 查看简化命令  
+  
+  ```
+  $ alias
+  alias mysql='/usr/local/mysql/bin/mysql'
+  ```  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;简化命令已生效，可以直接输入第七步所示命令登录MySQL。  
+  
+**操作具体数据库**  
+
+1. 进入已存在数据库`tysql`  
+  
+  ```
+  mysql> use tysql;
+  Reading table information for completion of table and column names
+  You can turn off this feature to get a quicker startup with -A
+
+  Database changed 
+  ```  
+
+2. 查看数据库中的表  
+  
+  ```
+  mysql> show tables;
++--------------------+
+| Tables_in_tysql    |
++--------------------+
+| CUstCopy           |
+| CustNew            |
+| customeremaillist  |
+| Customers          |
+| MyFirstTable       |
+| OrderItems         |
+| orderitemsexpanded |
+| Orders             |
+| productcustomers   |
+| Products           |
+| vendorlocations    |
+| Vendors            |
++--------------------+
+  ```  
+  
+**参考**  
+[1] GarveyCalvin.[MySQL之终端(Terminal)管理MySQL](https://www.cnblogs.com/GarveyCalvin/p/4297221.html)  
+[2] 风亡小窝.[mysql存储过程详细教程](https://www.jianshu.com/p/7b2d74701ccd)  
+[3] 番薯大佬.[Mac电脑安装及终端命令使用mysql](https://www.jianshu.com/p/65595b0e59ad)
+    
+### <div id="115-MySQL基本操作总结">1.1.5 MySQL基本操作总结</div>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本文是关于MySQL基本操作的总结，也是《SQL必知必会》这本书的读书笔记，将自认为的其中重要知识点摘抄总结出来。以下图所示五个表格为例进行展示与介绍。
 
 <div align="center">
@@ -805,26 +962,120 @@ MySQL中的基本操作主要为选择，插入，删除和更新四种，对应
      ```  
      
 + **<div id="使用存储过程">使用存储过程</div>**  
-问题解决思路（结合参考手册）： 
+**存储过程简介**  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存储过程就是为以后使用而保存的一条 或多条 SQL 语句。可将其视为批文件，虽然它们的作用不仅限于批处理。  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不同数据库中的存储过程使用方式差别很大，且支持度也不太相同。Access和SQLite不支持存储过程，且MySQL 5之后才支持存储过程。要了解各数据库中存储过程的使用方式需看相关参考文档，本文着重对MySQL中的存储过程进行介绍。  
+**存储过程优缺点**  
 
-1. 尝试终端创建存储过程；  
-[1] GarveyCalvin.[MySQL之终端(Terminal)管理MySQL](https://www.cnblogs.com/GarveyCalvin/p/4297221.html)  
-[2] 风亡小窝.[mysql存储过程详细教程](https://www.jianshu.com/p/7b2d74701ccd)
-2. 直接谷歌搜索报错语句；
-3. 搜索DBeaver创建MySQL存储过程报错；      
-     
-### <div id="115-参考">1.1.5 参考</div>  
+ + 通过把处理封装在一个易用的单元中，可以简化复杂的操作(如前面 例子所述)。
+ + 由于不要求反复建立一系列处理步骤，因而保证了数据的一致性。如 果所有开发人员和应用程序都使用同一存储过程，则所使用的代码都是相同的。这一点的延伸就是防止错误。需要执行的步骤越多，出错的可能性就越大。防止错误保证了数据的一致性。
+ + 简化对变动的管理。如果表名、列名或业务逻辑(或别的内容)有变化，那么只需要更改存储过程的代码。使用它的人员甚至不需要知道这些变化。这一点的延伸就是安全性。通过存储过程限制对基础数据的访问，减少了数据讹误(无意识的或别的原因所导致的数据讹误)的机会。
+ +  因为存储过程通常以编译过的形式存储，所以 DBMS 处理命令所需的 工作量少，提高了性能。
+ + 存在一些只能用在单个请求中的 SQL 元素和特性，存储过程可以使用 它们来编写功能更强更灵活的代码。  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;简而言之，存储过程具有简单，安全，高效的优点。但SQL代码的存储过程依然存在如下两个缺陷：  
+
+  + 不同 DBMS 中的存储过程语法有所不同。事实上，编写真正的可移植 存储过程几乎是不可能的。不过，存储过程的自我调用(名字以及数 据如何传递)可以相对保持可移植。因此，如果需要移植到别的 DBMS， 至少客户端应用代码不需要变动。
+  + 一般来说，编写存储过程比编写基本 SQL 语句复杂，需要更高的技能， 更丰富的经验。因此，许多数据库管理员把限制存储过程的创建作为 安全措施(主要受上一条缺陷的影响)。受DBMS限制，即使不可以编写自己的存储过程，但可以使用别的存储过程。  
+  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文中提到的优点也可以解释为什么要使用存储过程。  
+**执行存储过程**  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管不同DBMS执行存储过程的具体语法有所不同，但结构大体相同，可总结为如下形式：
+> 声明(var,DECLARE)参数；  
+> 执行（EXE或EXECUTE） OUT参数=存储过程名('IN参数'/:OUT参数)；  
+> SELECT 参数（检索输出存储过程中的数据）；  
+  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以下通过一个具体例子介绍Oracle，SQL Server，MySQL三种数据库执行存储过程的具体操作。其中RetrunValue是从存储过程返回的值，在创建存储过程时用OUT标示。其中MySQL的命令是在终端输入并验证成功，其它的命令参考自[SQL必知必会-中文-第4版](https://github.com/Roggu123/DataAnalysis/blob/master/References/SQL必知必会-中文-第4版.pdf)，未经亲自验证。  
+Oracle  
+
+ ```
+ var ReturnValue NUMBER
+ EXEC MailingListCount(:ReturnValue);
+ SELECT ReturnValue;
+ ```  
+SQL Server  
+
+ ```
+ DECLARE @ReturnValue INT
+ EXECUTE @ReturnValue=MailingListCount;
+ SELECT @ReturnValue;
+ ```  
+MySQL  
+
+ ```
+ mysql> CALL MailingListCount(@ReturnValue);
+ mysql> SELECT @ReturnValue;
+ ```  
+ 
+ **创建存储过程**  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还是通过具体例子分别介绍三种数据库创建存储过程的具体方式。其中MySQL的命令依然是在终端中执行并且经过亲自验证正确。其它的命令均摘抄自书本[SQL必知必会-中文-第4版](https://github.com/Roggu123/DataAnalysis/blob/master/References/SQL必知必会-中文-第4版.pdf)，我还未亲自实践检验过。  
+Oracle  
+
+ ```
+ CREATE PROCEDURE MailingListCount (
+  ListCount OUT INTEGER
+ )
+ IS
+ v_rows INTEGER;
+ BEGIN
+     SELECT COUNT(*) INTO v_rows
+     FROM Customers
+     WHERE NOT cust_email IS NULL;
+     ListCount := v_rows;
+ END;
+ ```  
+SQL Server  
+
+ ```
+ CREATE PROCEDURE MailingListCount
+ AS
+ DECLARE @cnt INTEGER
+ SELECT @cnt = COUNT(*)
+ FROM Customers
+ WHERE NOT cust_email IS NULL;
+ RETURN @cnt;
+ ```  
+MySQL  
+
+ ```
+ mysql> DELIMITER //
+ mysql> CREATE PROCEDURE MailingListCount (OUT v_rows INT)
+           BEGIN
+           SELECT COUNT(*) INTO v_rows
+           FROM Customers
+           WHERE NOT cust_email IS NULL;
+           END//
+ mysql> DELIMITER ;
+ mysql> SELECT @v_rows;
+ ```      
+
+关于MySQL创建存储过程的详细讲解请参见博客[MySQL创建存储过程]()。     
+
+### <div id="116-问题及解决记录">1.1.6 问题及解决记录</div>  
+1. **MySQL创建存储过程**  
+否定的
+
+
+
+
+
+2. **等等等**
+
+### <div id="117-参考">1.1.7 参考</div>  
 [1] 展菲.[mac 安装mysql详细教程](https://www.jianshu.com/p/07a9826898c0)  
 [2] 范聖佑.[第 28 天：安裝/使用 DBeaver 管理資料庫](https://ithelp.ithome.com.tw/articles/10196383)
   
 **DBeaver创建MySQL数据库**  
-[1] Ben Forta.[SQL必知必会-中文-第4版](https://github.com/Roggu123/DataAnalysis/blob/master/References/SQL必知必会-中文-第4版..pdf)  
+[1] Ben Forta.[SQL必知必会-中文-第4版](https://github.com/Roggu123/DataAnalysis/blob/master/References/SQL必知必会-中文-第4版.pdf)  
 [2] Jiezi.[连接 MYSQL 8.X 版本报错解决](https://lequ7.com/2019/04/08/richang/lian-jie-MySQL-8x-ban-ben-bao-cuo-jie-jue/)  
 [3] serge-rider.[Timezone and MySQL Connector](https://github.com/dbeaver/dbeaver/issues/3599)  
-[4] zyz511919766.[MySQL 中 localhost 与 127.0.0.1 的区别](https://blog.csdn.net/zyz511919766/article/details/21384791)   
+[4] zyz511919766.[MySQL 中 localhost 与 127.0.0.1 的区别](https://blog.csdn.net/zyz511919766/article/details/21384791)     
 
 **MySQL使用**  
-[1] .[MySQL 8.0参考手册](https://dev.mysql.com/doc/refman/8.0/en/) 
+[1] .[MySQL 8.0参考手册（pdf）](/Users/ruogulu/Desktop/Study/DataAnalysis/References/MySQL_8.0_Reference_Manual.pdf)  
+[2] .[MySQL 8.0参考手册（web）](https://dev.mysql.com/doc/refman/8.0/en/preface.html)  
+[3] GarveyCalvin.[MySQL之终端(Terminal)管理MySQL](https://www.cnblogs.com/GarveyCalvin/p/4297221.html)  
+[4] 风亡小窝.[mysql存储过程详细教程](https://www.jianshu.com/p/7b2d74701ccd)  
+[5] 量变决定质变.[MySQL调用存储过程](https://blog.csdn.net/nangeali/article/details/76285362)
   
   
 ## <div id="12-Mac安装并使用R">1.2 Mac安装并使用R</div>
