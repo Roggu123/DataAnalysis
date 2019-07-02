@@ -6,7 +6,12 @@ Table of Contents
          * [1.1.1 安装MySQL](#111-安装MySQL)  
          * [1.1.2 安装数据库管理软件DBeaver](#112-安装数据库管理软件DBeaver)  
          * [1.1.3 DBeaver创建MySQL数据库](#113-DBeaver创建MySQL数据库)  
-         * [1.1.4 终端管理MySQL](#114-终端管理MySQL)
+         * [1.1.4 终端管理MySQL](#114-终端管理MySQL)  
+            * [MySQL服务](#MySQL服务)  
+            * [登录MySQL（复杂）](#登录MySQL_复杂)
+            * [登录MySQL（命令简化）](#登录MySQL_命令简化)
+            * [登录MySQL（全局设置）](#登录MySQL_全局设置)  
+            * [具体数据库操作](#具体数据库操作) 
          * [1.1.5 MySQL基本操作总结](#115-MySQL基本操作总结)  
             * [检索数据排序](#检索数据排序)
             * [数据过滤](#数据过滤)  
@@ -131,8 +136,9 @@ Table of Contents
     <center>图3-5.timezone属性</center>
     
 ### <div id="114-终端管理MySQL">1.1.4 终端管理MySQL</div>  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一些权限较高的操作如创建存储过程在数据库管理软件如DBeaver中可能较难执行，需要在终端环境下执行，并且有些数据库需在服务器上操作，所以学习终端管理MySQL还是很有必要的。以下命令均在Mac终端下测试完成的。
-**MySQL服务**  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一些权限较高的操作如创建存储过程在数据库管理软件如DBeaver中可能较难执行，需要在终端环境下执行，并且有些数据库需在服务器上操作，所以学习终端管理MySQL还是很有必要的。以下命令均在Mac终端下测试完成的。  
+
+**<div id="MySQL服务">MySQL服务</div>**  
 
 1. 启动MySQL服务  
  
@@ -153,7 +159,7 @@ Table of Contents
   Restarting MySQL database server
   ```  
 
-4. 除了终端外，还可以在系统偏好设置中设置MySQL的关闭与启动，详情见[第一章 Mac安装Mysql](https://blog.csdn.net/lrglgy/article/details/90549309)中图1-8。  
+4. 除了终端外，还可以在系统偏好设置中设置MySQL的关闭与启动，详情见[第一章 Mac安装Mysql](https://blog.csdn.net/lrglgy/article/details/90549309)中图1-8。    
 5. 更改MySQL的root管理员密码  
   
   ```
@@ -163,7 +169,7 @@ Table of Contents
   ```  
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输入原密码后，密码更改为123456生效。  
 
-**终端登录MySQL**  
+**<div id="登录MySQL_复杂">登录MySQL（复杂）</div>**  
 
 1. 查看MySQL路径
   
@@ -195,7 +201,9 @@ Table of Contents
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每当关闭终端后，下次登录MySQL需要重新添加路径，较为麻烦。可以使用`alias`命令简化MySQL的终端登录操作。详情见下文。  
   
-5. 使用MySQL运行路径登录  
+**<div id="登录MySQL_命令简化">登录MySQL（命令简化）**  
+  
+1. 使用MySQL运行路径登录  
   
   ```SQL
   $ /usr/local/mysql/bin/mysql -u root -p
@@ -203,14 +211,14 @@ Table of Contents
   ```  
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然步骤减少了，但命令还是有些繁琐，可以用`alias`命令进行简化。  
   
-6. 用`alias`命令简化  
+2. 用`alias`命令简化  
   
   ```
   $ alias mysql=/usr/local/mysql/bin/mysql
   ```  
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用`alias`命令很简单，就是`alias <简化后的名字>=<'具体的指令>`。  
 
-7. 登录MySQL  
+3. 登录MySQL  
   
   ```
   $ mysql -u root -p
@@ -218,6 +226,8 @@ Table of Contents
   ```
   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然命令简化了，但关闭终端后，已简化的命令就失效了，因此需要将简化命令定义为全局。可以在目录`~/.bash_profile`下添加指令定义全局变量。  
+
+**<div id="登录MySQL_全局设置">登录MySQL（全局设置）</div>**  
 
 8. 进入`$ ~/.bash_profile`文件  
   
@@ -245,9 +255,9 @@ Table of Contents
   $ alias
   alias mysql='/usr/local/mysql/bin/mysql'
   ```  
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;简化命令已生效，可以直接输入第七步所示命令登录MySQL。  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;简化命令已生效，可以直接输入[终端登录MySQL（简化命令）](#终端登录MySQL_简化命令)中第三步所示命令登录MySQL。  
   
-**操作具体数据库**  
+**<div id="具体数据库操作">具体数据库操作</div>**  
 
 1. 进入已存在数据库`tysql`  
   
@@ -279,7 +289,9 @@ Table of Contents
 | vendorlocations    |
 | Vendors            |
 +--------------------+
-  ```  
+  ```
+  
+3. SELECT查询  
   
 **参考**  
 [1] GarveyCalvin.[MySQL之终端(Terminal)管理MySQL](https://www.cnblogs.com/GarveyCalvin/p/4297221.html)  
@@ -1045,6 +1057,7 @@ MySQL
            WHERE NOT cust_email IS NULL;
            END//
  mysql> DELIMITER ;
+ mysql> CALL MailingListCount(@v_rows);
  mysql> SELECT @v_rows;
  ```      
 
@@ -1052,7 +1065,49 @@ MySQL
 
 ### <div id="116-问题及解决记录">1.1.6 问题及解决记录</div>  
 1. **MySQL创建存储过程**  
-否定的
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尝试创建一个存储过程，用于统计`customers`表中`cust_country=USA`的顾客数，创建该存储过程的代码主体如下：  
+
+  ```
+  CREATE PROCEDURE USA_cust (OUT v_rows INT)
+  BEGIN
+  SELECT COUNT(*) INTO v_rows
+  FROM Customers
+  WHERE cust_country ='USA';
+  END//
+  ```
+  **在DBeaver中创建**  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在DBeaver的编辑器界面中输入上述代码，结果报错如下：  
+  ``[1064] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'END//' at line 1``  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该报错表示END末尾的`//`存在语法问题。由于SQL查询语句中已经有`;`，所以要用另一个符号`//`表示输入命令结束，即指定`//`为分隔符。使用命令`DELIMITER`指定分隔符，在上述代码开头添加`DELIMITER //`，然后再次运行,发现还是会出现与上面相同的报错，通过查阅资料得知，DBeaver无法直接指定分隔符，貌似要在选项卡中修改参数（指定分隔符并非本文重点，感兴趣者参考[这里](http://hk.voidcc.com/question/p-yalbtjtm-kz.html)修改）。  
+    
+ **在终端中创建**  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;既然在DBeaver中无法直接通过代码创建存储过程，那就尝试通过终端这种更底层的方式创建存储过程，详细过程如下：  
+
+  ```
+  # 先启动MySQL服务，再进入tysql数据库，然后输入如下代码
+  
+  mysql> DELIMITER //
+  mysql> CREATE PROCEDURE USA_cust (OUT v_rows INT)
+  mysql> BEGIN
+  mysql> SELECT COUNT(*) INTO v_rows
+  mysql> FROM Customers
+  mysql> WHERE cust_country ='USA';
+  mysql> END//
+  Query OK, 0 rows affected (0.01 sec)
+  
+  mysql> DELIMITER ;
+  mysql> CALL USA_cust(@v_rows);
+  Query OK, 1 row affected (0.00 sec)
+  
+  mysql> SELECT @v_rows;
+  +---------+
+| @v_rows |
++---------+
+|       5 |
++---------+
+1 row in set (0.00 sec)
+```  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由上可知，可以在终端中较为方便地创建存储过程。要在DBeaver中查询使用存储过程可以使用与终端相同的语句，即使用`CALL USA_cust(@v_rows);`和`SELECT @v_rows;`这两句。会达到相同的效果。
 
 
 
@@ -1075,7 +1130,7 @@ MySQL
 [2] .[MySQL 8.0参考手册（web）](https://dev.mysql.com/doc/refman/8.0/en/preface.html)  
 [3] GarveyCalvin.[MySQL之终端(Terminal)管理MySQL](https://www.cnblogs.com/GarveyCalvin/p/4297221.html)  
 [4] 风亡小窝.[mysql存储过程详细教程](https://www.jianshu.com/p/7b2d74701ccd)  
-[5] 量变决定质变.[MySQL调用存储过程](https://blog.csdn.net/nangeali/article/details/76285362)
+[5] 量变决定质变.[MySQL调用存储过程](https://blog.csdn.net/nangeali/article/details/76285362) 
   
   
 ## <div id="12-Mac安装并使用R">1.2 Mac安装并使用R</div>
