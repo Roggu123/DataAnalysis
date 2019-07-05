@@ -11,7 +11,7 @@ Table of Contents
             * [登录MySQL（复杂）](#登录MySQL_复杂)
             * [登录MySQL（命令简化）](#登录MySQL_命令简化)
             * [登录MySQL（全局设置）](#登录MySQL_全局设置)  
-            * [具体数据库操作](#具体数据库操作) 
+            * [操作数据库](#具体数据库操作) 
          * [1.1.5 MySQL基本操作总结](#115-MySQL基本操作总结)  
             * [检索数据排序](#检索数据排序)
             * [数据过滤](#数据过滤)  
@@ -25,8 +25,8 @@ Table of Contents
             * [创建和操纵表](#创建和操纵表)  
             * [使用视图](#使用视图)  
             * [使用存储过程](#使用存储过程)
-
-         * [1.1.6 问题及解决记录](#116-问题及解决记录)     
+         * [1.1.6 问题及解决记录](#116-问题及解决记录)  
+            * [创建存储过程](#创建存储过程)      
          * [1.1.7 参考](#117-参考)
       * [1.2 Mac安装并使用R](#12-mac安装并使用r)
          * [1.2.1 前言](#121-前言)
@@ -257,7 +257,7 @@ Table of Contents
   ```  
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;简化命令已生效，可以直接输入[终端登录MySQL（简化命令）](#终端登录MySQL_简化命令)中第三步所示命令登录MySQL。  
   
-**<div id="具体数据库操作">具体数据库操作</div>**  
+**<div id="具体数据库操作">操作数据库</div>**  
 
 1. 进入已存在数据库`tysql`  
   
@@ -291,13 +291,59 @@ Table of Contents
 +--------------------+
   ```
   
-3. SELECT查询  
+3. 基本操作  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在终端执行MySQL基本操作与在数据库管理软件如DBeaver中一样，详细命令见[MySQL基本操作之查询](https://blog.csdn.net/lrglgy/article/details/93926692#5-MySQL基本操作之查询),[MySQL基本操作之插入数据](https://blog.csdn.net/lrglgy/article/details/94603212)和[MySQL基本操作之删除和更新数据]()这三篇博客。下面以查询为例，对终端执行MySQL基本操作给出直观体验。  
+
+ ```
+ mysql> select prod_name From Products;
++---------------------+
+| prod_name           |
++---------------------+
+| Fish bean bag toy   |
+| Bird bean bag toy   |
+| Rabbit bean bag toy |
+| 8 inch teddy bear   |
+| 12 inch teddy bear  |
+| 18 inch teddy bear  |
+| Raggedy Ann         |
+| King doll           |
+| Queen doll          |
++---------------------+
+9 rows in set (0.00 sec)
+ ```  
+ 
+4. 导入MySQL数据  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;向已有数据库导入数据，首先用use命令进入被导入数据库，然后输入：  
+
+  ```
+  mysql> source /Users//Documents/Code/class.sql
+  ```  
   
+5. 导出数据  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;导出数据库数据时使用如下命令：  
+
+  ```
+  mysqldump -u root -p <数据库名> <表名> > <导出的名字>.sql
+  ```  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;导出带删除格式的数据库，还原时能够覆盖已有数据库而不用删除原有数据库：  
+
+ ```
+ mysqldump --add-drop-table e -u root -p testDB > TESTDB.sql
+ ```  
+ 
+6. 还原数据库  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果误删了一些数据，又或者是更新数据时忘记指定where条件，或者把数据表都删除了，可以通过如下命令把它们还原：  
+
+  ```
+  $ mysql -u root -p testDB < testDB.sql
+  Enter password: 
+  ```  
+      
 **参考**  
 [1] GarveyCalvin.[MySQL之终端(Terminal)管理MySQL](https://www.cnblogs.com/GarveyCalvin/p/4297221.html)  
 [2] 风亡小窝.[mysql存储过程详细教程](https://www.jianshu.com/p/7b2d74701ccd)  
 [3] 番薯大佬.[Mac电脑安装及终端命令使用mysql](https://www.jianshu.com/p/65595b0e59ad)
-    
+
 ### <div id="115-MySQL基本操作总结">1.1.5 MySQL基本操作总结</div>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本文是关于MySQL基本操作的总结，也是《SQL必知必会》这本书的读书笔记，将自认为的其中重要知识点摘抄总结出来。以下图所示五个表格为例进行展示与介绍。
 
@@ -1064,7 +1110,7 @@ MySQL
 关于MySQL创建存储过程的详细讲解请参见博客[MySQL创建存储过程]()。     
 
 ### <div id="116-问题及解决记录">1.1.6 问题及解决记录</div>  
-1. **MySQL创建存储过程**  
+1. **<div id="创建存储过程">创建存储过程</div>**  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尝试创建一个存储过程，用于统计`customers`表中`cust_country=USA`的顾客数，创建该存储过程的代码主体如下：  
 
   ```
