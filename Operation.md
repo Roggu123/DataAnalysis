@@ -20,14 +20,15 @@ Table of Contents
             * [使用子查询](#使用子查询)
             * [联结表](#联结表)  
             * [组合查询](#组合查询)
-            * [插入数据](#插入数据)  
-            * [删除更新数据](#删除数据)  
+            * [插入数据](#插入数据)
+            * [删除更新数据](#删除数据)
+         * [1.1.6 MySQL进阶操作总结](#116-MySQL进阶操作总结)   
             * [创建和操纵表](#创建和操纵表)  
             * [使用视图](#使用视图)  
             * [使用存储过程](#使用存储过程)
-         * [1.1.6 问题及解决记录](#116-问题及解决记录)  
+         * [1.1.7 问题及解决记录](#117-问题及解决记录)  
             * [创建存储过程](#创建存储过程)      
-         * [1.1.7 参考](#117-参考)
+         * [1.1.8 参考](#118-参考)
       * [1.2 Mac安装并使用R](#12-mac安装并使用r)
          * [1.2.1 前言](#121-前言)
          * [1.2.2 安装](#122-安装)
@@ -136,7 +137,7 @@ Table of Contents
     <center>图3-5.timezone属性</center>
     
 ### <div id="114-终端管理MySQL">1.1.4 终端管理MySQL</div>  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一些权限较高的操作如创建存储过程在数据库管理软件如DBeaver中可能较难执行，需要在终端环境下执行，并且有些数据库需在服务器上操作，所以学习终端管理MySQL还是很有必要的。以下命令均在Mac终端下测试完成的。  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一些权限较高的操作如创建存储过程在数据库管理软件如DBeaver中可能较难执行，需要在终端环境下执行，并且有些数据库需在服务器上操作，所以学习终端管理MySQL还是很有必要的。以下命令均在Mac终端下测试完成的。 
 
 **<div id="MySQL服务">MySQL服务</div>**  
 
@@ -408,12 +409,67 @@ MySQL中的基本操作主要为选择，插入，删除和更新四种，对应
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一般默认进行升序排列，要降序排列时，只需在进行排序的列名后添加语句`DESC`，多列降序排列时则在每一列后面都添加语句`DESC`。  
  
 + **<div id="数据过滤">数据过滤</div>**  
-  
+数据过滤是数据检索中最常用的功能之一。通常使用 SELECT 语句中的 WHERE 子句进行数据过滤。  
+
+1. WHERE 子句操作符
+ <div align="center">
+
+ |操作符     |说明        |操作符          |说明        |   
+ |--------  |:---------:|:-----:        |:-----:     |    
+ |=         |等于        |>              |大于        |
+ |<>        |不等于      |>=             |大于等于     | 
+ |! =       |不等于      |! >            |不大于       |
+ |<         |小于        |BETWEEN        |在两个值之间 |
+ |<=        |小于等于    |IS NULL        |不为空       |
+ |! <       |不小于      |               |           |
+ </div>
+ <center>表5-2 WHERE子句操作符</center>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表格中的操作符存在冗余，这是由于并非所有数据库都支持上述所有操作符，要根据数据库对应参考文档确定其支持的操作符。   
+ 
+2. 单值匹配检查  
+
+ ```
+ SELECT prod_name, prod_price
+ FROM Products
+ WHERE prod_price < 10;
+ ```  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的例子会列出所有价格小于 10 美元的产品。  
+ 
+3. 不匹配检查  
+
+ ```
+ SELECT vend_id, prod_name
+ FROM Products
+ xxWHERE vend_id <> 'DLL01';
+ ```  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;列出所有供货商编号不是 DL101 的供货商。  
+ **注意**：  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当值为字符串时需加单引号。  
+
+4. 值范围匹配  
+
+ ```
+ SELECT prod_name, prod_price
+ FROM Products
+ WHERE prod_price BETWEEN 5 AND 10;
+ ```  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;列出所有产品价格为5至10美元的产品。  
+
+5. 空值匹配  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;空值是指包含值为空，而非值为0，空格等。所以空值判断不可以使用 WHERE 子句中的操作符判断，而用其专有的语句判断。  
+ 
+ ```
+ SELECT prod_name
+ FROM Products
+ WHERE prod_price IS NULL;
+ ```  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回价格为空的产品名字。       
 
 + **<div id="汇总数据">汇总数据</div>**  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时不需要实际的数据本身，而需要汇总表中数据。这时就需要聚集函数来实现数据汇总，各种数据库对聚集函数的实现都非常一致。五种常用的聚集函数如下所示：  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时不需要实际的数据本身，而需要汇总表中数据。这时就需要聚集函数来实现数据汇总，各种数据库对聚集函数的实现都非常一致。五种常用的聚集函数如下所示：   
 
 1. 返回某列的平均值
+
    
  ```
  ELECT AVG(prod_price) AS avg_price
@@ -434,7 +490,7 @@ MySQL中的基本操作主要为选择，插入，删除和更新四种，对应
  NULL值：自动忽略；  
  文本列：返回按列排序的最后一行。  
  
-3. 返回最大值  
+3. 返回最大值
 
  ```
  SELECT MIN(prod_price) 
@@ -840,6 +896,8 @@ MySQL中的基本操作主要为选择，插入，删除和更新四种，对应
    + 使用强制实施引用完整性的数据库(关于这个内容，请参阅第 12 课)，这样 DBMS 将不允许删除其数据与其他表相关联的行。
    + 有的 DBMS 允许数据库管理员施加约束，防止执行不带 WHERE 子句 的 UPDATE 或 DELETE 语句。如果所采用的 DBMS 支持这个特性，应该使用它。  
 
+### <div id="116-MySQL进阶操作总结">1.1.6 MySQL进阶操作总结</div>
+
 + **<div id="创建和操纵表">创建和操纵表</div>**  
    **创建表**  
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建表有两种方法，第一种是通过DBMS工具创建，第二种是通过SQL语句创建。  
@@ -1109,7 +1167,7 @@ MySQL
 
 关于MySQL创建存储过程的详细讲解请参见博客[MySQL创建存储过程]()。     
 
-### <div id="116-问题及解决记录">1.1.6 问题及解决记录</div>  
+### <div id="117-问题及解决记录">1.1.7 问题及解决记录</div>  
 1. **<div id="创建存储过程">创建存储过程</div>**  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尝试创建一个存储过程，用于统计`customers`表中`cust_country=USA`的顾客数，创建该存储过程的代码主体如下：  
 
@@ -1161,7 +1219,7 @@ MySQL
 
 2. **等等等**
 
-### <div id="117-参考">1.1.7 参考</div>  
+### <div id="118-参考">1.1.8 参考</div>  
 [1] 展菲.[mac 安装mysql详细教程](https://www.jianshu.com/p/07a9826898c0)  
 [2] 范聖佑.[第 28 天：安裝/使用 DBeaver 管理資料庫](https://ithelp.ithome.com.tw/articles/10196383)
   
@@ -1169,14 +1227,15 @@ MySQL
 [1] Ben Forta.[SQL必知必会-中文-第4版](https://github.com/Roggu123/DataAnalysis/blob/master/References/SQL必知必会-中文-第4版.pdf)  
 [2] Jiezi.[连接 MYSQL 8.X 版本报错解决](https://lequ7.com/2019/04/08/richang/lian-jie-MySQL-8x-ban-ben-bao-cuo-jie-jue/)  
 [3] serge-rider.[Timezone and MySQL Connector](https://github.com/dbeaver/dbeaver/issues/3599)  
-[4] zyz511919766.[MySQL 中 localhost 与 127.0.0.1 的区别](https://blog.csdn.net/zyz511919766/article/details/21384791)     
+[4] zyz511919766.[MySQL 中 localhost 与 127.0.0.1 的区别](https://blog.csdn.net/zyz511919766/article/details/21384791)       
 
 **MySQL使用**  
 [1] .[MySQL 8.0参考手册（pdf）](/Users/ruogulu/Desktop/Study/DataAnalysis/References/MySQL_8.0_Reference_Manual.pdf)  
 [2] .[MySQL 8.0参考手册（web）](https://dev.mysql.com/doc/refman/8.0/en/preface.html)  
 [3] GarveyCalvin.[MySQL之终端(Terminal)管理MySQL](https://www.cnblogs.com/GarveyCalvin/p/4297221.html)  
 [4] 风亡小窝.[mysql存储过程详细教程](https://www.jianshu.com/p/7b2d74701ccd)  
-[5] 量变决定质变.[MySQL调用存储过程](https://blog.csdn.net/nangeali/article/details/76285362) 
+[5] 量变决定质变.[MySQL调用存储过程](https://blog.csdn.net/nangeali/article/details/76285362)  
+[6]  韩湘.[使用Markdown写矩阵](https://blog.csdn.net/qq_38228254/article/details/79469727)，添加矩阵中分割线，行间矩阵。 
   
   
 ## <div id="12-Mac安装并使用R">1.2 Mac安装并使用R</div>
