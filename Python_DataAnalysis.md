@@ -117,7 +117,88 @@ my_list = list(range(1000000))
 |eye(N)<br>identity(N)|创建一个N*N的单位方阵|  
 
 ### <div id="122-ndarray中数据类型">1.2.2 ndarray中数据类型</div>  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dtype（数据类型）是一个特殊的对象，它用于表示ndarray数据的数据类型。具体用法如下：  
   
+   ```python
+   # 定义两个nadarray，其中arr1的类型为float64，arr2的数据类型为int32
+   In [1]: arr1 = np.array([1,3,5,7,9], dtype = np.float64)
+   In [2]: arr2 = np.array([0,2,4,6,8], dtype = np.int32)
+   In [3]: arr1.dtype
+   Out[3]: dtype('float64')
+   In [4]: arr2.dtype
+   Out[4]: dtype('int32')
+   ```  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由上述代码可知，数据类型的命名方式非常简单：数据类型名（如float或int）后直接跟单个元素所占位长即可。下表显示了 ndarray 中具体的数据类型。  
+
+|类型          |类型代码    |说明                           |  
+|:----:        |:----:     |:----:                        |  
+|int8、uint8   |i1、u1     |有符号和无符号的8位（一个字节）整型 |
+|int16、uint16 |i2、u2     |有符号和无符号的16位（两个字节）整型|
+|int32、uint32 |i4、u4     |有符号和无符号的32位（三个字节）整型|
+|int64、uint64 |i8、u8     |有符号和无符号的64位（八个字节）整型|  
+|float16      |f2         |半精度浮点数                     |
+|float32      |f4或f       |标准的单精度浮点数，与C的float兼容 |
+|float64      |f8或d       |标准的双精度浮点数，与C的double和<br>Python的float对象兼容|
+|float128     |f16或g      |扩展精度浮点数                   |
+|complex64、complex128、<br>complex256|c8、c16、c32|分别用两个32位，64位，128位浮点数<br>表示的复数  |
+|bool         |?          |存储True值和False值的布尔类型     |  
+|object       |O          |Python对象类型                  |
+|string       |S          |固定长度的字符串类型（每个字符一个<br>字节）。例如要创建一个长度为10的字<br>符串，应使用S10。|  
+|unicode      |U          |固定长度的unicode类型（字节数由平台<br>决定）。与字符串的定义方式一样。|   
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以通过ndarray中的astype方法明确地将数组从一个dtype转换为另一个dtype。  
+
++ 整型转浮点型：  
+  
+  ```python
+  In [1]:arr = np.array([1,2,3,4,5])
+  In [2]:arr.dtype
+  Out[2]:dtype('int64')  
+  In [3]:float_arr = arr.astype(np.float16)
+  In [4]:float_arr.dtype  
+  Out[4]:dtype('float16')
+  ```  
+
++ 浮点型转整型：  
+  
+  ```python
+  # 小数部分会被截取删除
+  In [1]:arr = np.array([1.1,2.2,4.4,6.6,7.7])
+  In [2]:arr.dtype
+  Out[2]:dtype('float64')
+  In [3]:arr = arr.astype(np.int32)
+  In [4]:arr  
+  Out[4]:array([1, 2, 4, 6, 7], dtype=int32)
+  ```  
+  
++ 数值字符串转数值型：  
+  
+  ```python
+  # 若字符串中有小数则只能转为浮点型，若为整数，则能转为浮点型与整型
+  In [1]:arr = np.array(['1.2','3.54','3','4.43','2'], dtype=np.string_)
+  In [2]:arr
+  Out[2]:array([b'1.2', b'3.54', b'3', b'4.43', b'2'], dtype='|S4')
+  In [3]:arr1 = arr.astype(np.float64)
+  In [4]:arr1
+  Out[4]:array([1.2 , 3.54, 3.  , 4.43, 2.  ])
+  ```  
+  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对象dtype也可以用来指定要转换的数据类型，具体如下：  
+  
+  ```python
+  In [1]:int_array = np.arange(10)
+  In [2]:float_array = np.array([1.3,3.3,4.2,5.1],dtype=np.float64)
+  In [3]:int_array.astype(float_array.dtype)
+  In [4]:int_array  
+  Out[4]:array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+  ```   
+  
+**注意**：  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;调用astype总会产生一个新的数组（一个数据的备份），即使新的dtype与旧的dtype相同。  
+
+### 1.2.3 Numpy数组运算
+      
 ## <div id="13-通用函数">1.3 通用函数</div>  
 # <center><div id="9-代码知识补充">第九章 代码知识补充</div></div>   
 %time用法
