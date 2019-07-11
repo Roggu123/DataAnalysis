@@ -144,19 +144,25 @@ Table of Contents
 1. 启动MySQL服务  
  
   ```
-  $ sudo /Library/StartupItems/MySQLCOM/MySQLCOM start
-  ```  
+  $ sudo sudo /usr/local/MySQL/support-files/mysql.server start
+  Password:电脑管理员密码
+  Starting MySQL
+  . SUCCESS!
+  ```    
 
 2. 停止MySQL服务  
   
   ```
-  $ sudo /Library/StartupItems/MySQLCOM/MySQLCOM stop
+  $ sudo sudo /usr/local/mysql/support-files/mysql.server stop
+  Password:电脑管理员密码
+  Shutting down MySQL
+  ... SUCCESS!
   ```  
   
 3. 重启MySQL服务  
   
   ```
-  $ sudo /Library/StartupItems/MySQLCOM/MySQLCOM restart
+  $ sudo /usr/local/mysql/support-files/mysql.server restart
   Restarting MySQL database server
   ```  
 
