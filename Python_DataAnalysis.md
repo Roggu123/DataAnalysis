@@ -197,7 +197,36 @@ my_list = list(range(1000000))
 **注意**：  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;调用astype总会产生一个新的数组（一个数据的备份），即使新的dtype与旧的dtype相同。  
 
-### 1.2.3 Numpy数组运算
+### 1.2.3 Numpy数组运算  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数组的重要优势在于不必编写循环即可对数据执行批量运算。大小相等的数组之间的任何算术运算都会应用于元素级。具体实例如下：
+
++ 数组与数组的运算  
+
+  ```python
+  In [1]:arr = np.array([[1.,2.,3.],[4.,5.,6.]])
+  In [2]:arr * arr
+  Out[2]:array([[ 1.,  4.,  9.],
+                [16., 25., 36.]])
+  In [3]:arr - arr
+  Out[3]:array([[0., 0., 0.],
+                [0., 0., 0.]])
+  # 形状相同数组间的比较会产生布尔值数组
+  In [4]:arr1 = np.array([[3.,4.,1.],[3.,6.,2.]])
+  In [5]:arr > arr1
+  Out[5]:array([[False, False,  True],
+                  [ True, False,  True]])
+  ```  
+  
++ 数组与标量的运算  
+
+  ```python
+  In [1]:1/arr
+  Out[1]array([[1.        , 0.5       , 0.33333333],
+                 [0.25      , 0.2       , 0.16666667]])
+  In [2]:arr * 2
+  Out[2]:array([[ 2.,  4.,  6.],
+                  [ 8., 10., 12.]])
+  ```  
       
 ## <div id="13-通用函数">1.3 通用函数</div>  
 # <center><div id="9-代码知识补充">第九章 代码知识补充</div></div>   
