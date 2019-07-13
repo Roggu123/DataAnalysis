@@ -5,7 +5,8 @@ Table of Contents
      * [1.1 基本介绍](#11-基本介绍)
      * [1.2 数据容器ndarray](#12-数据容器ndarray)  
          * [1.2.1 创建ndarray](#121-创建ndarray)
-         * [1.2.2 ndarray中数据类型](#122-ndarray中数据类型) 
+         * [1.2.2 ndarray中数据类型](#122-ndarray中数据类型)
+         * [1.2.3 Numpy数组运算](#123-Numpy数组运算) 
      * [1.3 通用函数](#13-通用函数)   
   * [第九章 代码知识补充](#9-代码知识补充)  
      
@@ -197,7 +198,7 @@ my_list = list(range(1000000))
 **注意**：  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;调用astype总会产生一个新的数组（一个数据的备份），即使新的dtype与旧的dtype相同。  
 
-### 1.2.3 Numpy数组运算  
+### <div id="123-Numpy数组运算">1.2.3 Numpy数组运算</div>  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数组的重要优势在于不必编写循环即可对数据执行批量运算。大小相等的数组之间的任何算术运算都会应用于元素级。具体实例如下：
 
 + 数组与数组的运算  
